@@ -1,6 +1,6 @@
 package core;
 
-import controllers.Controller;
+import controllers.EntityController;
 
 public class Movement {
 
@@ -12,21 +12,21 @@ public class Movement {
         this.vector = new Vector2D(0,0);
     }
 
-    public void update(Controller controller){
+    public void update(EntityController entityController){
 
         int deltaX = 0;
         int deltaY = 0;
 
-        if(controller.isRequestingUp()){
+        if(entityController.isRequestingUp()){
             deltaY--;
         }
-        if(controller.isRequestingDown()){
+        if(entityController.isRequestingDown()){
             deltaY++;
         }
-        if(controller.isRequestingLeft()){
+        if(entityController.isRequestingLeft()){
             deltaX--;
         }
-        if(controller.isRequestingRight()){
+        if(entityController.isRequestingRight()){
             deltaX++;
         }
 
@@ -50,5 +50,12 @@ public class Movement {
 
     public void stop() {
         vector = new Vector2D(0,0);
+    }
+
+    public Vector2D getDirection() {
+        Vector2D direction = Vector2D.copyOf(vector);
+        direction.normalize();
+
+        return direction;
     }
 }

@@ -30,8 +30,8 @@ public class Render {
     private void renderGameObjects(State state, Graphics graphics){
         Camera camera = state.getCamera();
         state.getGameObjects().stream().filter(gameObject -> camera.isInView(gameObject)).forEach(gameObject -> graphics.drawImage(gameObject.getSprite(),
-                gameObject.getPosition().intX() - camera.getPosition().intX() - gameObject.getSize().getWidth()/2,
-                gameObject.getPosition().intY() - camera.getPosition().intY() - gameObject.getSize().getHeight() / 2, null));
+                gameObject.getRenderPosition(camera).intX(),
+                gameObject.getRenderPosition(camera).intY(), null));
     }
 
     private void renderMap(State state, Graphics graphics) {

@@ -1,5 +1,7 @@
 package core;
 
+import java.util.Vector;
+
 public class Vector2D {
 
     private double x;
@@ -13,7 +15,7 @@ public class Vector2D {
     public double length(){
         return Math.sqrt(x*x + y*y);
     }
-
+    //Makes vector unit vector?
     public void normalize(){
         double length = length();
         x = x == 0 ? 0 : x /length;
@@ -24,6 +26,20 @@ public class Vector2D {
     public void multiply(double speed) {
         x*= speed;
         y*= speed;
+    }
+
+    public static Vector2D copyOf(Vector2D vector){
+        return new Vector2D(vector.getX(), vector.getY());
+    }
+
+    public static Vector2D directionBetweenPositions(Position start, Position end){
+        Vector2D direction = new Vector2D(start.getX() - end.getX(), start.getY() - end.getY());
+        direction.normalize();
+        return direction;
+    }
+
+    public static double dotProduct(Vector2D v1, Vector2D v2){
+        return v1.getX()*v2.getX() + v1.getY()*v2.getY();
     }
 
     public double getX() {

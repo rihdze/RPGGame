@@ -6,7 +6,9 @@ import controllers.PlayerController;
 import entity.Effect.Sick;
 import entity.NPC;
 import entity.Player;
+import entity.SelectionCircle;
 import game.ui.UIGameTime;
+import game.ui.UISicknessStatistics;
 import input.Input;
 import map.GameMap;
 import core.Size;
@@ -38,17 +40,28 @@ public class GameState extends State{
 //        container.addUIComponent(new UIText("HELLO UI WORLD"));
 //        containerEnd.addUIComponent(new UIText("BEST GAME EVEEEEEER"));
 //        uiContainers.add(container);
+
+
         uiContainers.add(new UIGameTime(windowSize));
+        uiContainers.add(new UISicknessStatistics(windowSize));
     }
 
     private void initializeCharacters() {
-        Player player = new Player(new PlayerController(input), spriteLibrary);
-
+        SelectionCircle circle = new SelectionCircle();
+        Player player = new Player(new PlayerController(input), spriteLibrary, circle);
         gameObjects.add(player);
         camera.focusOn(player);
-
+        gameObjects.add(circle);
         initializeNPCs(200);
+        makeNumberOfNPCsSick(10);
 
+
+    }
+
+    private void makeNumberOfNPCsSick(int number) {
+        getGameObjectsOfClass(NPC.class)
+                .stream().limit(number) // limits the amount of npc affected
+                .forEach(npc -> npc.addEffect(new Sick())); // adds effect sick to 10 npcs
     }
 
     private void initializeNPCs(int numberOfNPCs) {
@@ -57,7 +70,8 @@ public class GameState extends State{
             NPC npc = new NPC(new NPCController(), spriteLibrary);
             npc.setPosition(gameMap.getRandomPosition());
             //     npc.perform(new Cough()); // Giving direct action
-            npc.addEffect(new Sick());
+//            npc.addEffect(new Sick());  //adds effect of sick to all of the spawned npc's
+
             gameObjects.add(npc);
 
         }

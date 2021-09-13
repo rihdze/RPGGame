@@ -1,6 +1,6 @@
 package entity;
 
-import controllers.Controller;
+import controllers.EntityController;
 import core.*;
 import entity.Effect.Effect;
 import entity.action.Action;
@@ -12,27 +12,33 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Vector;
 
 
 public abstract class MovingEntity extends GameObject{
-    protected Controller controller;
+    protected EntityController entityController;
     protected Movement movement;
     protected AnimationManager animationManager;
     protected Direction direction;
     protected List<Effect> effects;
     protected Optional<Action> action;
 
+    protected Vector2D directionVector;
+
     protected Size collisionBoxSize;
 
-    public MovingEntity(Controller controller, SpriteLibrary spriteLibrary) {
+    public MovingEntity(EntityController entityController, SpriteLibrary spriteLibrary) {
         super();
-        this.controller = controller;
+        this.entityController = entityController;
         this.movement = new Movement(2);
         this.animationManager = new AnimationManager(spriteLibrary.getUnit("matt"));
         this.direction = Direction.S;
+        this.directionVector = new Vector2D(0,0);
         effects = new ArrayList<>();
         action = Optional.empty();
         this.collisionBoxSize = new Size(16, 30);
+        this.renderOffset = new Position(size.getWidth()/2, size.getHeight()-12);
+        this.collisionBoxOffset = new Position(collisionBoxSize.getWidth()/2, collisionBoxSize.getHeight());
     }
 
 
@@ -62,7 +68,7 @@ public abstract class MovingEntity extends GameObject{
     private void handleMotion() {
 
         if(!action.isPresent()){
-            movement.update(controller);
+            movement.update(entityController);
         } else {
             movement.stop();
         }
@@ -100,6 +106,7 @@ public abstract class MovingEntity extends GameObject{
     private void manageDirection() {
         if(movement.isMoving()){
             this.direction = Direction.fromMotion(movement);
+            this.directionVector = movement.getDirection();
         }
     }
 
@@ -108,16 +115,13 @@ public abstract class MovingEntity extends GameObject{
       return animationManager.getSprite();
     }
 
-    @Override
-    public boolean collidesWith(GameObject other) {
-        return getCollisionBox().collidesWith(other.getCollisionBox());
-    }
 
     @Override
     public CollisionBox getCollisionBox() {
 
-        Position positionWithMotion = Position.copyOf(position);
+        Position positionWithMotion = Position.copyOf(getPosition());
         positionWithMotion.apply(movement);
+        positionWithMotion.subtract(collisionBoxOffset);
         return new CollisionBox(
                 new Rectangle(
                         positionWithMotion.intX(),
@@ -128,8 +132,8 @@ public abstract class MovingEntity extends GameObject{
         );
     }
 
-    public Controller getController() {
-        return controller;
+    public EntityController getController() {
+        return entityController;
     }
 
     public void multiplySpeed(double multiplier) {
@@ -147,4 +151,18 @@ public abstract class MovingEntity extends GameObject{
     protected void clearEffect() {
         effects.clear();
     }
+// For sickness follower
+    public boolean isAffected(Class<?> clazz) {
+        return effects.stream()
+                .anyMatch(effect -> clazz.isInstance(effect));
+    }
+
+    public boolean isFacing(Position other){
+        Vector2D direction = Vector2D.directionBetweenPositions(other, getPosition());
+        double dotProduct = Vector2D.dotProduct(direction, directionVector);
+
+        return dotProduct >0;
+        //if dotProduct > 0 our target is infront if  0 < then target is behind us.
+    }
+
 }
