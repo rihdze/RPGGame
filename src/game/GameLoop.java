@@ -1,8 +1,10 @@
+package game;
+
 public class GameLoop implements Runnable{
     private Game game;
-
+    public static final int UPDATES_PER_SECOND = 60;
     private boolean running;
-    private final double updateRate = 1.0d/60.0d;
+    private final double updateRate = 1.0d/UPDATES_PER_SECOND;
     private long nextStatTime;
     private int fps, ups;
 
@@ -29,8 +31,9 @@ public class GameLoop implements Runnable{
                     update();
                     accumulator -= updateRate;
                 }
-                render();
+
             }
+            render();
             printStats();
         }
 

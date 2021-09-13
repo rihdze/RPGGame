@@ -1,3 +1,5 @@
+package controllers;
+
 public interface Controller {
 
     boolean isRequestingUp();
