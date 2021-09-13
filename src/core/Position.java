@@ -16,6 +16,11 @@ public class Position {
         this.y = y;
     }
 
+    public static Position copyOf(Position position) {
+
+        return new Position(position.getX(), position.intY());
+    }
+
     public double getX() {
         return x;
     }

@@ -1,6 +1,7 @@
 package game.state;
 
 
+import UI.UIContainer;
 import display.Camera;
 import entity.GameObject;
 import game.Time;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 
 public abstract class State {
     protected List<GameObject> gameObjects;
+    protected List<UIContainer> uiContainers;
     protected SpriteLibrary spriteLibrary;
     protected GameMap gameMap;
     protected Input input;
@@ -31,6 +33,7 @@ public abstract class State {
 
         this.input = input;
         gameObjects = new ArrayList<>();
+        uiContainers = new ArrayList<>();
         spriteLibrary = new SpriteLibrary();
         camera = new Camera(windowSize);
         time = new Time();
@@ -42,8 +45,10 @@ public abstract class State {
     }
 
     public void update(){
+        time.update();
         sortObjectsByPosition();
         gameObjects.forEach(gameObject -> gameObject.update(this));
+        uiContainers.forEach(uiContainer -> uiContainer.update(this));
         camera.update(this);
     }
 
@@ -68,5 +73,9 @@ public abstract class State {
         return gameObjects.stream()
                 .filter(other -> other.collidesWith(gameObject))
                 .collect(Collectors.toList());
+    }
+
+    public List<UIContainer> getUiContainers() {
+        return uiContainers;
     }
 }

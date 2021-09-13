@@ -1,15 +1,13 @@
 package entity;
 
 import controllers.Controller;
-import core.CollisionBox;
-import core.Size;
+import core.*;
 import entity.Effect.Effect;
 import entity.action.Action;
 import game.state.State;
 import gfx.AnimationManager;
 import gfx.SpriteLibrary;
-import core.Direction;
-import core.Movement;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -117,10 +115,13 @@ public abstract class MovingEntity extends GameObject{
 
     @Override
     public CollisionBox getCollisionBox() {
+
+        Position positionWithMotion = Position.copyOf(position);
+        positionWithMotion.apply(movement);
         return new CollisionBox(
                 new Rectangle(
-                        position.intX(),
-                        position.intY(),
+                        positionWithMotion.intX(),
+                        positionWithMotion.intY(),
                         collisionBoxSize.getWidth(),
                         collisionBoxSize.getHeight()
                 )
