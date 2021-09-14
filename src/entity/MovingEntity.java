@@ -12,7 +12,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Vector;
+
 
 
 public abstract class MovingEntity extends GameObject{
@@ -143,6 +143,10 @@ public abstract class MovingEntity extends GameObject{
     public void perform(Action action){
         this.action = Optional.of(action);
     }
+
+//    public void attack(NPC npc){
+//        npc.subtractHealth(50);
+//    }
 
     public void addEffect(Effect effect) {
         effects.add(effect);

@@ -4,6 +4,7 @@ package game.state;
 import UI.UIContainer;
 import display.Camera;
 import entity.GameObject;
+import entity.NPC;
 import game.Time;
 import gfx.SpriteLibrary;
 import input.Input;
@@ -46,10 +47,19 @@ public abstract class State {
 
     public void update(){
         time.update();
+
         sortObjectsByPosition();
-        gameObjects.forEach(gameObject -> gameObject.update(this));
+        updateGameObjects();
+
+
         uiContainers.forEach(uiContainer -> uiContainer.update(this));
         camera.update(this);
+    }
+
+    protected  void updateGameObjects(){
+        for(int i = 0; i < gameObjects.size(); i++){
+            gameObjects.get(i).update(this);
+        }
     }
 
     public Time getTime() {
@@ -86,6 +96,13 @@ public abstract class State {
                 .filter(clazz::isInstance)
                 .map(gameObject -> (T)gameObject)
                 .collect(Collectors.toList());
+
+    }
+
+    public void removeNPC(NPC npc){
+            if(!npc.isAlive()){
+                gameObjects.remove(npc);
+            }
 
     }
 

@@ -2,14 +2,23 @@ package entity;
 
 import ai.AIManager;
 import controllers.EntityController;
+
 import game.state.State;
 import gfx.AnimationManager;
 import gfx.SpriteLibrary;
 
 public class NPC extends MovingEntity{
+
+    private int hp;
+    private boolean isAlive;
+
+
+
     private AIManager aiManager;
     public NPC(EntityController entityController, SpriteLibrary spriteLibrary) {
         super(entityController, spriteLibrary);
+        this.hp = 100;
+        this.isAlive = true;
         animationManager = new AnimationManager(spriteLibrary.getUnit("dave"));
         aiManager = new AIManager();
     }
@@ -24,5 +33,31 @@ public class NPC extends MovingEntity{
         if(other instanceof Player){
             movement.stop();
         }
+    }
+
+
+    public void attack(Player player) {
+
+    }
+
+    public void subtractHealth(int points){
+
+        this.hp -= points;
+
+
+    }
+
+    public boolean isAlive() {
+
+        if(this.hp > 0){
+            return isAlive;
+        } else {
+            return !isAlive;
+        }
+
+    }
+
+    public int getHp() {
+        return hp;
     }
 }

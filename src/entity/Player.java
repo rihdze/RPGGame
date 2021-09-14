@@ -1,6 +1,7 @@
 package entity;
 
 import controllers.EntityController;
+import controllers.PlayerController;
 import core.Position;
 import game.Game;
 import game.state.State;
@@ -12,6 +13,8 @@ import java.util.Optional;
 
 public class Player extends MovingEntity{
 
+    private int hp;
+    private int damage = 5;
     private NPC target;
     private double targetRange;
     private SelectionCircle selectionCircle;
@@ -30,7 +33,22 @@ public class Player extends MovingEntity{
     public void update(State state){
         super.update(state);
         handleTarget(state);
+        handleInput(state);
     }
+
+    private void handleInput(State state) {
+        if(entityController.isRequestingAction()){
+            if(target != null){
+
+                target.subtractHealth(50);
+                System.out.println(target.getHp());
+                System.out.println("TESTTESTESTTESTSETSET");
+                state.removeNPC(target);
+            }
+        }
+    }
+
+
 
     private void handleTarget(State state) {
         Optional<NPC> closestNPC = findClosestNPC(state);
@@ -67,4 +85,17 @@ public class Player extends MovingEntity{
     }
 
 
-}
+//
+//    public void subtractHealth(int points){
+//
+//
+//
+//    }
+
+    public void attack(NPC npc){
+            npc.subtractHealth(damage);
+
+        }
+
+    }
+
