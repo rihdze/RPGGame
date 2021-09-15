@@ -1,7 +1,6 @@
 package entity;
 
 import controllers.EntityController;
-import controllers.PlayerController;
 import core.Position;
 import game.Game;
 import game.state.State;
@@ -16,6 +15,8 @@ public class Player extends MovingEntity{
     private int hp;
     private int damage = 5;
     private NPC target;
+
+    //MBY I COULD USE THIS FOR NPC'S TO LOCK ON ME WHEN I GO TOO CLOSE TO THEM
     private double targetRange;
     private SelectionCircle selectionCircle;
 
@@ -24,8 +25,9 @@ public class Player extends MovingEntity{
         super(entityController, spriteLibrary);
         this.selectionCircle = selectionCircle;
         this.targetRange = Game.SPRITE_SIZE;
+        this.hp = 100;
 
-        //Adds caffeinated effect = 2.5 speed for x amount of seconds (visu norada ieksa klase)
+//        Adds caffeinated effect = 2.5 speed for x amount of seconds (visu norada ieksa klase)
 //        effects.add(new Caffeinated());
 
     }
@@ -38,17 +40,21 @@ public class Player extends MovingEntity{
 
     private void handleInput(State state) {
         if(entityController.isRequestingAction()){
+
+//            System.out.println(this.position.getX() + " " + this.position.getY()); test
             if(target != null){
 
-                target.subtractHealth(50);
-                System.out.println(target.getHp());
-                System.out.println("TESTTESTESTTESTSETSET");
+                target.subtractHealth(damage);
+                System.out.println("Enemy hp: " + target.getHp());
                 state.removeNPC(target);
             }
         }
     }
 
 
+    public int getHp() {
+        return hp;
+    }
 
     private void handleTarget(State state) {
         Optional<NPC> closestNPC = findClosestNPC(state);
@@ -64,7 +70,7 @@ public class Player extends MovingEntity{
             target = null;
         }
     }
-
+//finds closest npc.
     private Optional<NPC> findClosestNPC(State state) {
 
         return state.getGameObjectsOfClass(NPC.class).stream()
@@ -96,6 +102,12 @@ public class Player extends MovingEntity{
             npc.subtractHealth(damage);
 
         }
-
+    public Position test(){
+        Position asd = new Position(position.getX(), position.getY());
+        return asd;
     }
+    public void subtractHealth(int damage) {
+        this.hp -= damage;
+    }
+}
 

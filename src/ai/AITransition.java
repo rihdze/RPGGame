@@ -13,6 +13,7 @@ public class AITransition {
         this.condition = condition;
     }
 
+
     public boolean shouldTransition(State state, NPC currentCharacter){
 
         return condition.isMet(state, currentCharacter);

@@ -2,7 +2,7 @@ package core;
 
 public class Position {
 
-    public static int PROXIMITY_RANGE = 5;
+    public static int PROXIMITY_RANGE = 1;
     private double x;
     private double y;
 

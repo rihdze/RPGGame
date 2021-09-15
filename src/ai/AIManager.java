@@ -1,6 +1,7 @@
 package ai;
 
 import ai.state.AIState;
+import ai.state.LockOnTarget;
 import ai.state.Stand;
 import ai.state.Wander;
 import entity.NPC;
@@ -25,12 +26,14 @@ public class AIManager {
 
     private void transitionTo(String nextState) {
         switch(nextState){
-            case"wander":
-                currentAIState = new Wander();
+            case"LockOnTarget":
+                currentAIState = new LockOnTarget();
+                System.out.println("LOCKED ON LOL");
                 return;
-            case "stand":
+            case "asd":
             default:
-                currentAIState = new Stand();
+                System.out.println("LOCKED ON LOL");
+                currentAIState = new LockOnTarget();
         }
     }
 }
