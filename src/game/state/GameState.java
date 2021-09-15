@@ -1,6 +1,6 @@
 package game.state;
 
-import UI.*;
+
 import controllers.NPCController;
 import controllers.PlayerController;
 import entity.Effect.Sick;
@@ -13,7 +13,7 @@ import input.Input;
 import map.GameMap;
 import core.Size;
 
-import java.awt.*;
+
 
 
 public class GameState extends State{
@@ -52,8 +52,8 @@ public class GameState extends State{
         gameObjects.add(player);
         camera.focusOn(player);
         gameObjects.add(circle);
-        initializeNPCs(200);
-        makeNumberOfNPCsSick(10);
+        initializeNPCs(1);
+        makeNumberOfNPCsSick(1);
 
 
     }

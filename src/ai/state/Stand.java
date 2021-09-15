@@ -16,4 +16,5 @@ public class Stand extends AIState{
     public void update(State state, NPC currentCharacter) {
         updatesAlive++;
     }
+
 }

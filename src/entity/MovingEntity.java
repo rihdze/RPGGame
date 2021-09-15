@@ -22,7 +22,6 @@ public abstract class MovingEntity extends GameObject{
     protected Direction direction;
     protected List<Effect> effects;
     protected Optional<Action> action;
-
     protected Vector2D directionVector;
 
     protected Size collisionBoxSize;
@@ -168,5 +167,7 @@ public abstract class MovingEntity extends GameObject{
         return dotProduct >0;
         //if dotProduct > 0 our target is infront if  0 < then target is behind us.
     }
+
+
 
 }

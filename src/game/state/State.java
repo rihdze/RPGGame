@@ -5,6 +5,7 @@ import UI.UIContainer;
 import display.Camera;
 import entity.GameObject;
 import entity.NPC;
+import entity.Player;
 import game.Time;
 import gfx.SpriteLibrary;
 import input.Input;
@@ -51,7 +52,6 @@ public abstract class State {
         sortObjectsByPosition();
         updateGameObjects();
 
-
         uiContainers.forEach(uiContainer -> uiContainer.update(this));
         camera.update(this);
     }
@@ -73,6 +73,12 @@ public abstract class State {
 
     public List<GameObject> getGameObjects() {
         return gameObjects;
+    }
+
+//GET PLAYER
+    public Player getPlayer(){
+
+       return getGameObjectsOfClass(Player.class).get(0);
     }
 
     public Position getRandomPosition(){

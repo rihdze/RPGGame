@@ -1,6 +1,7 @@
 package core;
 
 import controllers.EntityController;
+import entity.MovingEntity;
 
 public class Movement {
 

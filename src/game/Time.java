@@ -31,4 +31,14 @@ public class Time {
 
         return stringBuilder.toString();
     }
+
+    public double getSeconds(){
+        return updateSinceStart / GameLoop.UPDATES_PER_SECOND % 60;
+    }
+
+    public void reset(){
+        updateSinceStart = 0;
+    }
+
+
 }

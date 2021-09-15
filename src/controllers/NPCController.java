@@ -1,12 +1,16 @@
 package controllers;
 
 import core.Position;
+import entity.Player;
+
 
 public class NPCController implements EntityController {
     private boolean up;
     private boolean down;
     private boolean right;
     private boolean left;
+
+
     @Override
     public boolean isRequestingUp() {
         return up;
@@ -27,6 +31,8 @@ public class NPCController implements EntityController {
         return false;
     }
 
+
+
     @Override
     public boolean isRequestingRight() {
         return right;
@@ -42,10 +48,18 @@ public class NPCController implements EntityController {
         left = deltaX < 0 && Math.abs(deltaX) > Position.PROXIMITY_RANGE;
     }
 
+
     public void stop() {
         up = false;
         down = false;
         right = false;
         left = false;
+
     }
+
+
+
+
+
+
 }
