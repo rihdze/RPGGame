@@ -33,7 +33,7 @@ public class Wander extends AIState{
     }
 
     public AITransition toLockOnTarget(){
-       return new AITransition("lockontarget",(state, currentCharacter) -> (currentCharacter.getPosition().isInRangeOf(getCurrentPlayerPosition(state))));
+       return new AITransition("lockontarget",(state, currentCharacter) -> currentCharacter.collidesWith(state.getPlayer()));
     }
 
     public AITransition toStand(){
@@ -42,6 +42,7 @@ public class Wander extends AIState{
 
     public AITransition toWander(){
         return new AITransition("wander",(state, currentCharacter) -> (currentCharacter.getPosition().isInRangeOf(getCurrentPlayerPosition(state))));
+//        (currentCharacter.getPosition().isInRangeOf(getCurrentPlayerPosition(state)))
     }
 
     public void setStateName(String stateName) {
@@ -67,21 +68,26 @@ public class Wander extends AIState{
 
         NPCController controller = (NPCController) currentCharacter.getController();
         controller.moveToTarget(targets.get(0), currentCharacter.getPosition());
-        if(currentCharacter.getPosition().distanceTo(state.getPlayer().getPosition()) < 100){
+        if(currentCharacter.collidesWith(state.getPlayer())){
+//            if(currentCharacter.getPosition().distanceTo(state.getPlayer().getPosition()) < 100){
+//                currentCharacter.collidesWith(state.getPlayer())
 
-            setStateName("lockontarget");
-            initializeTransition();
+
 //            controller.stop();
+                setStateName("lockontarget");
+                initializeTransition();
 
-            if(arrived(currentCharacter)){
-                controller.stop();
+
+                if(arrived(currentCharacter)){
+                    controller.stop();
+                }
+
             }
-
         }
 
 
-    }
-    private boolean arrived(NPC currentCharacter){
+
+        private boolean arrived(NPC currentCharacter){
 
         return currentCharacter.getPosition().isInRangeOf(targets.get(0));
     }

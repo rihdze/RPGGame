@@ -9,6 +9,7 @@ import entity.NPC;
 import entity.Player;
 import game.Game;
 import game.Time;
+import game.settings.GameSettings;
 import gfx.SpriteLibrary;
 import input.Input;
 import map.GameMap;
@@ -33,15 +34,21 @@ public abstract class State {
     protected Time time;
     protected Size windowSize;
     private State nextState;
+    private GameSettings gameSettings;
 
     public Camera getCamera() {
         return camera;
     }
 
-    public State(Size windowSize, Input input) {
+    public GameSettings getGameSettings() {
+        return gameSettings;
+    }
+
+    public State(Size windowSize, Input input, GameSettings gameSettings) {
+        this.gameSettings = gameSettings;
         this.windowSize = windowSize;
         this.input = input;
-        audioPlayer = new AudioPlayer();
+        audioPlayer = new AudioPlayer(this.gameSettings.getAudioSettings());
         gameObjects = new ArrayList<>();
         uiContainers = new ArrayList<>();
         spriteLibrary = new SpriteLibrary();
@@ -55,6 +62,7 @@ public abstract class State {
     }
 
     public void update(Game game){
+        audioPlayer.update();
         time.update();
         sortObjectsByPosition();
         updateGameObjects();
@@ -139,5 +147,9 @@ public abstract class State {
 
     public void setNextState(State nextState) {
         this.nextState = nextState;
+    }
+
+    public AudioPlayer getAudioPlayer() {
+        return audioPlayer;
     }
 }

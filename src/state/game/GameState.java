@@ -7,12 +7,13 @@ import entity.Effect.Sick;
 import entity.NPC;
 import entity.Player;
 import entity.SelectionCircle;
+import game.settings.GameSettings;
 import input.Input;
 import map.GameMap;
 import core.Size;
 import state.State;
 import state.game.ui.UIGameTime;
-import state.game.ui.UISicknessStatistics;
+import state.game.ui.UIHealth;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,10 +21,10 @@ import java.util.ArrayList;
 
 public class GameState extends State {
 
-    public GameState(Size windowSize, Input input) throws SQLException {
-        super(windowSize, input);
+    public GameState(Size windowSize, Input input, GameSettings gameSettings) throws SQLException {
+        super(windowSize, input, gameSettings);
 
-        gameMap = new GameMap(new Size(20, 20), spriteLibrary);
+        gameMap = new GameMap(new Size(50, 50), spriteLibrary);
         initializeUI(windowSize);
         // have to pass the userName somehow after login:
         initializeCharacters("userName1");
@@ -47,7 +48,7 @@ public class GameState extends State {
 
 
         uiContainers.add(new UIGameTime(windowSize));
-        uiContainers.add(new UISicknessStatistics(windowSize));
+        uiContainers.add(new UIHealth(windowSize));
     }
 
     private void initializeCharacters(String userName) throws SQLException {

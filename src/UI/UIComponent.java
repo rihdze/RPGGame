@@ -15,6 +15,8 @@ public abstract class UIComponent {
     protected Spacing margin;
     protected Spacing padding;
 
+    protected UIContainer parent;
+
     public void setRelativePosition(Position relativePosition) {
         this.relativePosition = relativePosition;
     }
@@ -65,5 +67,9 @@ public abstract class UIComponent {
 
     public Spacing getPadding() {
         return padding;
+    }
+
+    public void setParent(UIContainer parent) {
+        this.parent = parent;
     }
 }

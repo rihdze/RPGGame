@@ -19,7 +19,7 @@ public abstract class AudioClip {
         setVolume(audiosettings);
     }
 
-    private void setVolume(AudioSettings audiosettings) {
+    public void setVolume(AudioSettings audiosettings) {
         final FloatControl control = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
         float range = control.getMaximum() - control.getMinimum();
         float gain = (range*getVolume(audiosettings) + control.getMinimum());
