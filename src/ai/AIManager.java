@@ -5,14 +5,15 @@ import ai.state.LockOnTarget;
 import ai.state.Stand;
 import ai.state.Wander;
 import entity.NPC;
-import game.state.State;
+import state.State;
 
 public class AIManager {
 
     private AIState currentAIState;
 
     public AIManager() {
-        transitionTo("stand");
+        transitionTo("wander");
+
     }
 
 
@@ -25,15 +26,22 @@ public class AIManager {
     }
 
     private void transitionTo(String nextState) {
+
+
+
+
         switch(nextState){
-            case"LockOnTarget":
-                currentAIState = new LockOnTarget();
-                System.out.println("LOCKED ON LOL");
+            case"wander":
+                currentAIState = new Wander();
                 return;
-            case "asd":
-            default:
-                System.out.println("LOCKED ON LOL");
+            case "stand":
+                currentAIState = new Stand();
+                return;
+            case "lockontarget":
                 currentAIState = new LockOnTarget();
+                return;
+            default:
+                currentAIState = new Wander();
         }
     }
 }

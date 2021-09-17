@@ -1,22 +1,28 @@
-package game.state;
+package state.game;
 
 
+import UI.Alignment;
+import UI.VerticalContainer;
+import UI.clickable.UIButton;
 import controllers.NPCController;
 import controllers.PlayerController;
+import entity.Effect.Caffeinated;
 import entity.Effect.Sick;
 import entity.NPC;
 import entity.Player;
 import entity.SelectionCircle;
-import game.ui.UIGameTime;
-import game.ui.UISicknessStatistics;
+import state.game.ui.UIGameTime;
+import state.game.ui.UISicknessStatistics;
 import input.Input;
 import map.GameMap;
 import core.Size;
+import state.State;
+import state.menu.MenuState;
+
+import java.awt.*;
 
 
-
-
-public class GameState extends State{
+public class GameState extends State {
 
     public GameState(Size windowSize, Input input) {
         super(windowSize, input);
@@ -41,9 +47,19 @@ public class GameState extends State{
 //        containerEnd.addUIComponent(new UIText("BEST GAME EVEEEEEER"));
 //        uiContainers.add(container);
 
-
+        test();
         uiContainers.add(new UIGameTime(windowSize));
         uiContainers.add(new UISicknessStatistics(windowSize));
+    }
+
+    private void test(){
+//        VerticalContainer testContainer = new VerticalContainer(camera.getSize());
+//        testContainer.setAlignment(new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER));
+//        testContainer.setBackgroundColor(Color.DARK_GRAY);
+////        testContainer.addUIComponent(new UIButton("Options", (state) -> state.setNextState(new MenuState(windowSize, input))));
+////        testContainer.addUIComponent(new UIButton("Menu", (state) -> System.out.println("BUTTON1 PRESSED!")));
+////        testContainer.addUIComponent(new UIButton("Exit", (state) -> System.exit(0)));
+//        uiContainers.add(testContainer);
     }
 
     private void initializeCharacters() {
@@ -52,7 +68,7 @@ public class GameState extends State{
         gameObjects.add(player);
         camera.focusOn(player);
         gameObjects.add(circle);
-        initializeNPCs(1);
+        initializeNPCs(10);
         makeNumberOfNPCsSick(1);
 
 
@@ -71,7 +87,7 @@ public class GameState extends State{
             npc.setPosition(gameMap.getRandomPosition());
             //     npc.perform(new Cough()); // Giving direct action
 //            npc.addEffect(new Sick());  //adds effect of sick to all of the spawned npc's
-
+            npc.addEffect(new Caffeinated());
             gameObjects.add(npc);
 
         }

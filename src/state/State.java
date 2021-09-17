@@ -1,11 +1,13 @@
-package game.state;
+package state;
 
 
 import UI.UIContainer;
+import audio.AudioPlayer;
 import display.Camera;
 import entity.GameObject;
 import entity.NPC;
 import entity.Player;
+import game.Game;
 import game.Time;
 import gfx.SpriteLibrary;
 import input.Input;
@@ -20,6 +22,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class State {
+
+    protected AudioPlayer audioPlayer;
     protected List<GameObject> gameObjects;
     protected List<UIContainer> uiContainers;
     protected SpriteLibrary spriteLibrary;
@@ -27,13 +31,17 @@ public abstract class State {
     protected Input input;
     protected Camera camera;
     protected Time time;
+    protected Size windowSize;
+    private State nextState;
+
     public Camera getCamera() {
         return camera;
     }
 
     public State(Size windowSize, Input input) {
-
+        this.windowSize = windowSize;
         this.input = input;
+        audioPlayer = new AudioPlayer();
         gameObjects = new ArrayList<>();
         uiContainers = new ArrayList<>();
         spriteLibrary = new SpriteLibrary();
@@ -46,14 +54,26 @@ public abstract class State {
         return gameMap;
     }
 
-    public void update(){
+    public void update(Game game){
         time.update();
-
         sortObjectsByPosition();
         updateGameObjects();
-
-        uiContainers.forEach(uiContainer -> uiContainer.update(this));
+        List.copyOf(uiContainers).forEach(uiContainer -> uiContainer.update(this));
         camera.update(this);
+        handleMouseInput();
+
+        if(nextState != null){
+            game.enterState(nextState);
+        }
+
+    }
+
+    private void handleMouseInput() {
+        if(input.isMouseClicked()){
+            System.out.println(String.format("MOUSE CLICK AT POSITION x:%d, y:%d", input.getMousePosition().intX(), input.getMousePosition().intY()));
+        }
+
+        input.clearMouseClick();
     }
 
     protected  void updateGameObjects(){
@@ -76,11 +96,11 @@ public abstract class State {
     }
 
 //GET PLAYER
+
     public Player getPlayer(){
 
        return getGameObjectsOfClass(Player.class).get(0);
     }
-
     public Position getRandomPosition(){
         return gameMap.getRandomPosition();
     }
@@ -113,4 +133,11 @@ public abstract class State {
     }
 
 
+    public Input getInput() {
+        return input;
+    }
+
+    public void setNextState(State nextState) {
+        this.nextState = nextState;
+    }
 }

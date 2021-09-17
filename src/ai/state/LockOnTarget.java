@@ -5,10 +5,9 @@ import controllers.NPCController;
 import core.Position;
 import entity.NPC;
 import entity.Player;
-import game.state.State;
+import state.State;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class LockOnTarget extends AIState{
@@ -17,19 +16,52 @@ public class LockOnTarget extends AIState{
     private List<Position> targets;
     private Player player;
     private Position test;
+
+    public static String stateName = "lockontarget";
     public LockOnTarget() {
+        super();
         targets = new ArrayList<>();
     }
 
     @Override
     protected AITransition initializeTransition() {
-        return new AITransition("LockOnTarget", (((state, currentCharacter) -> arrived(currentCharacter))));
+
+
+        if(stateName.equals("wander")){
+            return toWander();
+        } else if(stateName.equals("lockontarget")){
+            return toLockOnTarget();
+        } else {
+            return toStand();
+        }
+    }
+
+
+    public AITransition toLockOnTarget(){
+        return new AITransition("lockontarget",(state, currentCharacter) -> (currentCharacter.getPosition().isInRangeOf(getCurrentPlayerPosition(state))));
+    }
+
+    public AITransition toStand(){
+        return new AITransition("stand",(state, currentCharacter) -> (currentCharacter.getPosition().isInRangeOf(getCurrentPlayerPosition(state))));
+    }
+
+    public AITransition toWander(){
+        return new AITransition("wander",(state, currentCharacter) -> (currentCharacter.getPosition().isInRangeOf(getCurrentPlayerPosition(state))));
     }
 
     @Override
+    public String getStateName() {
+        return stateName;
+    }
+
+    public void setStateName(String stateName) {
+        this.stateName = stateName;
+    }
+
+
+    @Override
     public void update(State state, NPC currentCharacter) {
-//        System.out.println("PLAYER POS : "+getCurrentPlayerPosition(state).getX() +" "+getCurrentPlayerPosition(state).getY() );
-//        System.out.println("NPC POS : " +currentCharacter.getPosition().getX() +" " +currentCharacter.getPosition().getY());
+
         if(targets.isEmpty()){
 
 
@@ -40,8 +72,9 @@ public class LockOnTarget extends AIState{
         NPCController controller = (NPCController) currentCharacter.getController();
         controller.moveToTarget(getCurrentPlayerPosition(state), currentCharacter.getPosition());
 
-        if(arrived(currentCharacter)){
-            currentCharacter.attack();
+        if(currentCharacter.getPosition().isInRangeOf(getCurrentPlayerPosition(state))){
+            setStateName("lockontarget");
+            initializeTransition();
         }
 
 
@@ -56,6 +89,7 @@ public class LockOnTarget extends AIState{
 
 
     private boolean arrived(NPC currentCharacter){
+//        System.out.println(currentCharacter.getPosition().isInRangeOf(targets.get(0)));
         return currentCharacter.getPosition().isInRangeOf(targets.get(0));
     }
 

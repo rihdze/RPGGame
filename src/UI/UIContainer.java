@@ -2,7 +2,7 @@ package UI;
 
 import core.Position;
 import core.Size;
-import game.state.State;
+import state.State;
 import gfx.ImageUtils;
 
 import java.awt.*;
@@ -17,6 +17,7 @@ public abstract class UIContainer extends UIComponent{
 
     protected Alignment alignment;
     protected Size windowSize;
+    protected Size fixedSize;
 
     public void setAlignment(Alignment alignment) {
         this.alignment = alignment;
@@ -37,10 +38,16 @@ public abstract class UIContainer extends UIComponent{
     protected abstract Size calculateContentSize();
     protected abstract void calculateContentPosition();
 
+    public void setFixedSize(Size fixedSize) {
+        this.fixedSize = fixedSize;
+    }
+
     private void calculateSize(){
         Size calculateContentSize = calculateContentSize();
-
-        size = new Size(padding.getHorizontal() + calculateContentSize.getWidth(),
+        //If fixed size isn't null, the we prioritize fixed size, if it's null then we use calculated size;
+        size = fixedSize != null
+        ? fixedSize
+        :new Size(padding.getHorizontal() + calculateContentSize.getWidth(),
                         padding.getVertical() + calculateContentSize.getHeight());
 
     }
@@ -63,7 +70,8 @@ public abstract class UIContainer extends UIComponent{
             y = windowSize.getHeight() - size.getHeight() - margin.getBottom();
         }
 //        position = new Position(margin.getLeft(), margin.getTop());
-        this.position = new Position(x, y);
+        this.relativePosition = new Position(x, y);
+        this.absolutePosition = new Position(x,y);
         calculateContentPosition();
     }
 
@@ -77,8 +85,8 @@ public abstract class UIContainer extends UIComponent{
         for(UIComponent uiComponent : children){
             graphics.drawImage(
                     uiComponent.getSprite(),
-                    uiComponent.getPosition().intX(),
-                    uiComponent.getPosition().intY(),
+                    uiComponent.getRelativePosition().intX(),
+                    uiComponent.getRelativePosition().intY(),
                     null
             );
         }

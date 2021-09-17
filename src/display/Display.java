@@ -1,7 +1,7 @@
 package display;
 
 
-import game.state.State;
+import state.State;
 import input.Input;
 
 import javax.swing.*;
@@ -25,6 +25,8 @@ public class Display extends JFrame {
         canvas = new Canvas();
         canvas.setPreferredSize(new Dimension(width, height));
         canvas.setFocusable(false);
+        canvas.addMouseListener(input);
+        canvas.addMouseMotionListener(input);
         add(canvas);
         addKeyListener(input);
         pack();

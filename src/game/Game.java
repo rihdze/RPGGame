@@ -3,9 +3,10 @@ import controllers.GameController;
 import core.Size;
 import display.Display;
 import game.settings.GameSettings;
-import game.state.GameState;
-import game.state.State;
+import state.game.GameState;
+import state.State;
 import input.Input;
+import state.menu.MenuState;
 
 public class Game {
 
@@ -20,13 +21,13 @@ public class Game {
     public Game(int width, int height) {
         input = new Input();
         display = new Display(width, height, input);
-        state = new GameState(new Size(width, height), input);
+        state = new MenuState(new Size(width, height), input);
         settings = new GameSettings(true);
         gameController = new GameController(input);
     }
 
     public void update() {
-        state.update();
+        state.update(this);
         gameController.update(this);
     }
     //for debugmode toggle.
@@ -36,6 +37,11 @@ public class Game {
 
     public GameSettings getSettings() {
         return settings;
+    }
+
+    public void enterState(State nextState) {
+
+        state = nextState;
     }
 }
 

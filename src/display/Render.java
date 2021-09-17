@@ -1,7 +1,7 @@
 package display;
 
 import game.Game;
-import game.state.State;
+import state.State;
 import map.GameMap;
 import map.Tile;
 import core.Position;
@@ -21,8 +21,8 @@ public class Render {
     private void renderUI(State state, Graphics graphics) {
         state.getUiContainers().forEach(uiContainer -> graphics.drawImage(
                 uiContainer.getSprite(),
-                uiContainer.getPosition().intX(),
-                uiContainer.getPosition().intY(),
+                uiContainer.getRelativePosition().intX(),
+                uiContainer.getRelativePosition().intY(),
                 null
         ));
     }

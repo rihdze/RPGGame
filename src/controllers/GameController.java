@@ -1,7 +1,6 @@
 package controllers;
 
 import game.Game;
-import game.state.State;
 import input.Input;
 
 import java.awt.event.KeyEvent;

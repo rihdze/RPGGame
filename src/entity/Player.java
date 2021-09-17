@@ -3,7 +3,7 @@ package entity;
 import controllers.EntityController;
 import core.Position;
 import game.Game;
-import game.state.State;
+import state.State;
 import gfx.SpriteLibrary;
 
 import java.util.Comparator;
@@ -91,12 +91,6 @@ public class Player extends MovingEntity{
     }
 
 
-//
-//    public void subtractHealth(int points){
-//
-//
-//
-//    }
 
     public void attack(NPC npc){
             npc.subtractHealth(damage);

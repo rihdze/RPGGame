@@ -2,7 +2,7 @@ package entity.Effect;
 
 import entity.MovingEntity;
 import game.GameLoop;
-import game.state.State;
+import state.State;
 //VARETU SHITO PARTAISIT UZ KKADU POTION EFFECT KURS PAATRINA MOVEMENT SPEED
 public class Caffeinated extends Effect{
 
@@ -11,7 +11,7 @@ public class Caffeinated extends Effect{
 // * INT prieks duration in seconds
     public Caffeinated() {
         super(GameLoop.UPDATES_PER_SECOND *5000);
-        speedMultiplier = 0.75;
+        speedMultiplier = 1.5;
     }
 
     @Override

@@ -1,10 +1,10 @@
-package game.ui;
+package state.game.ui;
 
 import UI.Alignment;
 import UI.HorizontalContainer;
 import UI.UIText;
 import core.Size;
-import game.state.State;
+import state.State;
 
 public class UIGameTime extends HorizontalContainer {
 

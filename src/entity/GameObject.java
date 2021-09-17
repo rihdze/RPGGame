@@ -2,7 +2,7 @@ package entity;
 
 import core.CollisionBox;
 import display.Camera;
-import game.state.State;
+import state.State;
 import core.Position;
 import core.Size;
 

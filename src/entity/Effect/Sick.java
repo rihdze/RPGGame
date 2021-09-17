@@ -3,7 +3,7 @@ package entity.Effect;
 import entity.MovingEntity;
 import entity.action.Cough;
 import game.GameLoop;
-import game.state.State;
+import state.State;
 
 public class Sick extends Effect{
 

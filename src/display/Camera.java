@@ -2,7 +2,7 @@ package display;
 
 import entity.GameObject;
 import game.Game;
-import game.state.State;
+import state.State;
 import core.Position;
 import core.Size;
 
@@ -24,6 +24,7 @@ public class Camera {
     public Camera(Size windowSize) {
         this.windowSize = windowSize;
         this.position = new Position(0, 0);
+        this.objectWithFocus = Optional.empty();
         calculateViewBounds();
     }
 
@@ -44,6 +45,7 @@ public class Camera {
     public void update(State state){
         if(objectWithFocus.isPresent()){
             Position objectPosition = objectWithFocus.get().getPosition();
+
             //centers the camera
             this.position.setX(objectPosition.getX() - windowSize.getWidth()/2);
             this.position.setY(objectPosition.getY() - windowSize.getHeight()/2);

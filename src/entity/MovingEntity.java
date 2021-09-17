@@ -4,7 +4,7 @@ import controllers.EntityController;
 import core.*;
 import entity.Effect.Effect;
 import entity.action.Action;
-import game.state.State;
+import state.State;
 import gfx.AnimationManager;
 import gfx.SpriteLibrary;
 

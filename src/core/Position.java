@@ -2,7 +2,8 @@ package core;
 
 public class Position {
 
-    public static int PROXIMITY_RANGE = 1;
+    public static int PROXIMITY_RANGE = 5;
+    public static int PROXIMITY_RANGE_FOR_PLAYERS = 100;
     private double x;
     private double y;
 
@@ -53,6 +54,10 @@ public class Position {
 
     public boolean isInRangeOf(Position position) {
         return Math.abs(x - position.getX()) < Position.PROXIMITY_RANGE && Math.abs(y - position.getY()) < Position.PROXIMITY_RANGE;
+    }
+
+    public boolean isInRangeOfPlayer(Position position){
+        return Math.abs(x - position.getX()) < Position.PROXIMITY_RANGE_FOR_PLAYERS && Math.abs(y - position.getY()) < Position.PROXIMITY_RANGE_FOR_PLAYERS;
     }
 
     public void add(Position position) {

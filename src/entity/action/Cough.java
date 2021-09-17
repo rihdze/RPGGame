@@ -7,7 +7,7 @@ import entity.Effect.Sick;
 import entity.MovingEntity;
 import game.Game;
 import game.GameLoop;
-import game.state.State;
+import state.State;
 //Varetu lietot kaa low health rādītāju ??
 public class Cough extends Action {
 

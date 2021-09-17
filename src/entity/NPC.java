@@ -2,11 +2,10 @@ package entity;
 
 import ai.AIManager;
 import controllers.EntityController;
-import core.Movement;
 import entity.Effect.Caffeinated;
 import game.Game;
 import game.Time;
-import game.state.State;
+import state.State;
 import gfx.AnimationManager;
 import gfx.SpriteLibrary;
 
@@ -19,7 +18,6 @@ public class NPC extends MovingEntity{
     private boolean isAlive;
     private int damage;
     private Time timer;
-    private Movement test = new Movement(50);
     private Player target;
     private double targetRange;
     private static final double ATTACK_SPEED = 2 ;

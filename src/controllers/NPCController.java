@@ -31,6 +31,10 @@ public class NPCController implements EntityController {
         return false;
     }
 
+    @Override
+    public boolean isRequesting1() {
+        return false;
+    }
 
 
     @Override
