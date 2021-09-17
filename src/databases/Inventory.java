@@ -7,20 +7,20 @@ import java.util.ArrayList;
 public class Inventory extends Component {
 
     //TESTS:
-    public static void main(String[] args) throws SQLException {
+   // public static void main(String[] args) throws SQLException {
 
-        // load all Weapon ID numbers into array(playerInventory) from an existing user in database table(userName);
-       ArrayList<Integer> loadPlayer = playerInventory("userName1");
-        for (int i : loadPlayer) {
-            if (i > 1000 && i < 2000) {
+       // load all Weapon ID numbers into array(playerInventory) from an existing user in database table(userName);
+      // ArrayList<Integer> loadPlayer = playerInventory("userName1");
+       // for (int i : loadPlayer) {
+       //     if (i > 1000 && i < 2000) {
                 //create objects of type weapons
-                loadWeapons(i);
-            }
-            if (i > 2000 && i < 3000) {
+        //        loadWeapons(i);
+       //     }
+      //      if (i > 2000 && i < 3000) {
                 //create objects of type potions
-                loadPotions(i);
-            }
-        }
+     //           loadPotions(i);
+     //       }
+    //    }
 
        // adds item (ID 2003) to user: userName1
       /*
@@ -34,11 +34,10 @@ public class Inventory extends Component {
        // createNewUser("userName2");
       //  removeItem(1003, "userName1");
 
-        saveInventory(loadPlayer, "userName2");
+       // saveInventory(loadPlayer, "userName2");
 
 
-
-    }
+ //   }
 
 
 
@@ -53,7 +52,7 @@ public class Inventory extends Component {
                 Statement statement = conn.createStatement();
                 statement.execute(sql);
                 ResultSet result = statement.getResultSet();
-
+               // String newWeaponName = (String)id;
                 Weapons weapon = new Weapons(result.getString("weaponName_DB"), result.getInt("weaponRange_DB"), result.getInt("weaponSpeed_DB"), result.getInt("weaponDamage"));
 
                 System.out.println("A new weapon named " + result.getString("weaponName_DB") + " has been found.");

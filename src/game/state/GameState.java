@@ -13,17 +13,20 @@ import input.Input;
 import map.GameMap;
 import core.Size;
 
-
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 public class GameState extends State{
 
-    public GameState(Size windowSize, Input input) {
+    public GameState(Size windowSize, Input input) throws SQLException {
         super(windowSize, input);
 
         gameMap = new GameMap(new Size(20, 20), spriteLibrary);
         initializeUI(windowSize);
-        initializeCharacters();
+        // have to pass the userName somehow after login:
+        initializeCharacters("userName1");
+
     }
 
     private void initializeUI(Size windowSize) {
@@ -46,17 +49,27 @@ public class GameState extends State{
         uiContainers.add(new UISicknessStatistics(windowSize));
     }
 
-    private void initializeCharacters() {
+    private void initializeCharacters(String userName) throws SQLException {
         SelectionCircle circle = new SelectionCircle();
-        Player player = new Player(new PlayerController(input), spriteLibrary, circle);
+        Player player = new Player(userName, new PlayerController(input), spriteLibrary, circle);
+        ArrayList<Integer> loadPlayer = player.playerInventory(userName);
+        // for (int i : loadPlayer) {
+        //     if (i > 1000 && i < 2000) {
+        //create objects of type weapons
+        //        loadWeapons(i);
+        //     }
+        //      if (i > 2000 && i < 3000) {
+        //create objects of type potions
+        //           loadPotions(i);
+        //       }
+        //    }
         gameObjects.add(player);
         camera.focusOn(player);
         gameObjects.add(circle);
         initializeNPCs(1);
         makeNumberOfNPCsSick(1);
-
-
     }
+
 
     private void makeNumberOfNPCsSick(int number) {
         getGameObjectsOfClass(NPC.class)
@@ -73,12 +86,11 @@ public class GameState extends State{
 //            npc.addEffect(new Sick());  //adds effect of sick to all of the spawned npc's
 
             gameObjects.add(npc);
-
         }
 
-
-
     }
+
+    private void initializeInventory() {}
 
 
 

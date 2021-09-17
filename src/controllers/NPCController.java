@@ -31,8 +31,6 @@ public class NPCController implements EntityController {
         return false;
     }
 
-
-
     @Override
     public boolean isRequestingRight() {
         return right;
@@ -57,6 +55,15 @@ public class NPCController implements EntityController {
 
     }
 
+    @Override
+    public boolean isRequesting1() {
+        return false;
+    }
+
+    @Override
+    public boolean isRequesting2() {
+        return false;
+    }
 
 
 
