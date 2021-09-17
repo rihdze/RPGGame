@@ -1,35 +1,32 @@
-package state.game;
+package game.state;
 
 
-import UI.Alignment;
-import UI.VerticalContainer;
-import UI.clickable.UIButton;
 import controllers.NPCController;
 import controllers.PlayerController;
-import entity.Effect.Caffeinated;
 import entity.Effect.Sick;
 import entity.NPC;
 import entity.Player;
 import entity.SelectionCircle;
-import state.game.ui.UIGameTime;
-import state.game.ui.UISicknessStatistics;
+import game.ui.UIGameTime;
+import game.ui.UISicknessStatistics;
 import input.Input;
 import map.GameMap;
 import core.Size;
-import state.State;
-import state.menu.MenuState;
 
-import java.awt.*;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 
-public class GameState extends State {
+public class GameState extends State{
 
-    public GameState(Size windowSize, Input input) {
+    public GameState(Size windowSize, Input input) throws SQLException {
         super(windowSize, input);
 
         gameMap = new GameMap(new Size(20, 20), spriteLibrary);
         initializeUI(windowSize);
-        initializeCharacters();
+        // have to pass the userName somehow after login:
+        initializeCharacters("userName1");
+
     }
 
     private void initializeUI(Size windowSize) {
@@ -47,32 +44,32 @@ public class GameState extends State {
 //        containerEnd.addUIComponent(new UIText("BEST GAME EVEEEEEER"));
 //        uiContainers.add(container);
 
-        test();
+
         uiContainers.add(new UIGameTime(windowSize));
         uiContainers.add(new UISicknessStatistics(windowSize));
     }
 
-    private void test(){
-//        VerticalContainer testContainer = new VerticalContainer(camera.getSize());
-//        testContainer.setAlignment(new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER));
-//        testContainer.setBackgroundColor(Color.DARK_GRAY);
-////        testContainer.addUIComponent(new UIButton("Options", (state) -> state.setNextState(new MenuState(windowSize, input))));
-////        testContainer.addUIComponent(new UIButton("Menu", (state) -> System.out.println("BUTTON1 PRESSED!")));
-////        testContainer.addUIComponent(new UIButton("Exit", (state) -> System.exit(0)));
-//        uiContainers.add(testContainer);
-    }
-
-    private void initializeCharacters() {
+    private void initializeCharacters(String userName) throws SQLException {
         SelectionCircle circle = new SelectionCircle();
-        Player player = new Player(new PlayerController(input), spriteLibrary, circle);
+        Player player = new Player(userName, new PlayerController(input), spriteLibrary, circle);
+        ArrayList<Integer> loadPlayer = player.playerInventory(userName);
+        // for (int i : loadPlayer) {
+        //     if (i > 1000 && i < 2000) {
+        //create objects of type weapons
+        //        loadWeapons(i);
+        //     }
+        //      if (i > 2000 && i < 3000) {
+        //create objects of type potions
+        //           loadPotions(i);
+        //       }
+        //    }
         gameObjects.add(player);
         camera.focusOn(player);
         gameObjects.add(circle);
-        initializeNPCs(10);
+        initializeNPCs(1);
         makeNumberOfNPCsSick(1);
-
-
     }
+
 
     private void makeNumberOfNPCsSick(int number) {
         getGameObjectsOfClass(NPC.class)
@@ -87,14 +84,13 @@ public class GameState extends State {
             npc.setPosition(gameMap.getRandomPosition());
             //     npc.perform(new Cough()); // Giving direct action
 //            npc.addEffect(new Sick());  //adds effect of sick to all of the spawned npc's
-            npc.addEffect(new Caffeinated());
-            gameObjects.add(npc);
 
+            gameObjects.add(npc);
         }
 
-
-
     }
+
+    private void initializeInventory() {}
 
 
 

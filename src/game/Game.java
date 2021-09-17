@@ -8,6 +8,8 @@ import state.State;
 import input.Input;
 import state.menu.MenuState;
 
+import java.sql.SQLException;
+
 public class Game {
 
     public static int SPRITE_SIZE = 64;
@@ -18,7 +20,7 @@ public class Game {
     private GameSettings settings;
     private GameController gameController;
 
-    public Game(int width, int height) {
+    public Game(int width, int height) throws SQLException {
         input = new Input();
         display = new Display(width, height, input);
         state = new MenuState(new Size(width, height), input);
