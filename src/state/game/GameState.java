@@ -1,4 +1,4 @@
-package game.state;
+package state.game;
 
 
 import controllers.NPCController;
@@ -7,17 +7,18 @@ import entity.Effect.Sick;
 import entity.NPC;
 import entity.Player;
 import entity.SelectionCircle;
-import game.ui.UIGameTime;
-import game.ui.UISicknessStatistics;
 import input.Input;
 import map.GameMap;
 import core.Size;
+import state.State;
+import state.game.ui.UIGameTime;
+import state.game.ui.UISicknessStatistics;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-public class GameState extends State{
+public class GameState extends State {
 
     public GameState(Size windowSize, Input input) throws SQLException {
         super(windowSize, input);

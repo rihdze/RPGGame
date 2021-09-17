@@ -7,6 +7,7 @@ import core.Size;
 import state.State;
 
 import java.awt.*;
+import java.sql.SQLException;
 
 public class UIButton extends UIClickable{
 
@@ -25,7 +26,7 @@ public class UIButton extends UIClickable{
     }
 
     @Override
-    public void update(State state){
+    public void update(State state) throws SQLException {
         super.update(state);
         container.update(state);
         size = container.getSize();
@@ -49,7 +50,7 @@ public class UIButton extends UIClickable{
     }
 
     @Override
-    protected void onClick(State state) {
+    protected void onClick(State state) throws SQLException {
         clickAction.execute(state);
     }
 }

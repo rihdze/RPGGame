@@ -7,6 +7,7 @@ import gfx.ImageUtils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,7 +98,13 @@ public abstract class UIContainer extends UIComponent{
 
     @Override
     public void update(State state) {
-        children.forEach(component -> component.update(state));
+        children.forEach(component -> {
+            try {
+                component.update(state);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
         calculateSize();
         calculatePosition();
     }

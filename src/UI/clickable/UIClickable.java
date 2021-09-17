@@ -5,6 +5,7 @@ import core.Position;
 import state.State;
 
 import java.awt.*;
+import java.sql.SQLException;
 
 public abstract class UIClickable extends UIComponent {
 
@@ -12,7 +13,7 @@ public abstract class UIClickable extends UIComponent {
     protected boolean isPressed;
 
     @Override
-    public void update(State state){
+    public void update(State state) throws SQLException {
         Position mousePosition = state.getInput().getMousePosition();
 
         hasFocus = getBounds().contains(mousePosition.intX(), mousePosition.intY());
@@ -23,7 +24,7 @@ public abstract class UIClickable extends UIComponent {
         }
     }
 
-    protected abstract void onClick(State state);
+    protected abstract void onClick(State state) throws SQLException;
 
     private Rectangle getBounds(){
         return new Rectangle(

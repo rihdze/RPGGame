@@ -5,6 +5,7 @@ import core.Size;
 import state.State;
 
 import java.awt.*;
+import java.sql.SQLException;
 
 public abstract class UIComponent {
 
@@ -40,7 +41,7 @@ public abstract class UIComponent {
 
     public abstract Image getSprite();
 
-    public abstract void update(State state);
+    public abstract void update(State state) throws SQLException;
 
     public Position getAbsolutePosition() {
         return absolutePosition;
