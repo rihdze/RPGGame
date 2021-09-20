@@ -84,7 +84,7 @@ public abstract class State {
         input.clearMouseClick();
     }
 
-    protected  void updateGameObjects(){
+    protected  void updateGameObjects() {
         for(int i = 0; i < gameObjects.size(); i++){
             gameObjects.get(i).update(this);
         }

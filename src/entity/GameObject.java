@@ -29,7 +29,7 @@ public abstract class GameObject {
 
     }
 
-    public abstract void update(State state);
+    public abstract void update(State state) ;
 
     public abstract CollisionBox getCollisionBox();
 

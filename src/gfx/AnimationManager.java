@@ -50,8 +50,10 @@ public class AnimationManager {
 
 
     public void playDeathAnimation(){
+
         this.currentAnimationSheet = (BufferedImage)spriteSet.get("death");
         currentAnimationName= "death";
+
         frameIndex = 3;
     }
 

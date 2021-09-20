@@ -50,7 +50,7 @@ public abstract class MovingEntity extends GameObject{
 
 
     @Override
-    public void update(State state){
+    public void update(State state) {
         handleAction(state);
         handleMotion();
 
@@ -101,7 +101,7 @@ public abstract class MovingEntity extends GameObject{
         if(!isAlive){
             animationManager.playDeathAnimation();
         }
-        if(action.isPresent() ){
+        else if(action.isPresent() ){
             animationManager.playAnimation(action.get().getAnimationName());
         }
          else if(movement.isMoving()){
@@ -167,6 +167,9 @@ public abstract class MovingEntity extends GameObject{
     public boolean isAffected(Class<?> clazz) {
         return effects.stream()
                 .anyMatch(effect -> clazz.isInstance(effect));
+    }
+    public EntityController getEntityController() {
+        return entityController;
     }
 
     public boolean isFacing(Position other){

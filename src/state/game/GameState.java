@@ -69,7 +69,7 @@ public class GameState extends State {
         gameObjects.add(player);
         camera.focusOn(player);
         gameObjects.add(circle);
-        initializeNPCs(5);
+        initializeNPCs(50);
         makeNumberOfNPCsSick(0);
     }
 

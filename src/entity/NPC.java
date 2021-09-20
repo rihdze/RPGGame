@@ -113,10 +113,10 @@ public class NPC extends MovingEntity{
     public boolean isAlive() {
 
         if(this.hp > 0){
-            return isAlive;
+            return this.isAlive;
         } else {
 
-            return !isAlive;
+            return !this.isAlive;
         }
 
     }

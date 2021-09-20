@@ -25,7 +25,7 @@ public class LockOnTarget extends AIState{
 
     @Override
     protected AITransition initializeTransition() {
-
+        System.out.println("INITIALIZE TRANSITION FROM LOCK ON TARGET");
 
         if(stateName.equals("wander")){
             return toWander();
@@ -46,7 +46,7 @@ public class LockOnTarget extends AIState{
     }
 
     public AITransition toWander(){
-        return new AITransition("wander",(state, currentCharacter) -> (currentCharacter.getPosition().isInRangeOf(getCurrentPlayerPosition(state))));
+        return new AITransition("wander",(state, currentCharacter) -> (arrived(currentCharacter)));
     }
 
     @Override
