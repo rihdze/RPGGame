@@ -7,6 +7,7 @@ import entity.Effect.Sick;
 import entity.NPC;
 import entity.Player;
 import entity.SelectionCircle;
+import entity.action.Attack;
 import game.settings.GameSettings;
 import input.Input;
 import map.GameMap;

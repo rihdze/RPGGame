@@ -32,6 +32,11 @@ public class NPCController implements EntityController {
     }
 
     @Override
+    public boolean isRequestingAttack() {
+        return false;
+    }
+
+    @Override
     public boolean isRequestingRight() {
         return right;
     }

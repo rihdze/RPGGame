@@ -3,6 +3,8 @@ package entity;
 import ai.AIManager;
 import controllers.EntityController;
 import entity.Effect.Caffeinated;
+import entity.action.Attack;
+import entity.action.Death;
 import game.Game;
 import game.Time;
 import state.State;
@@ -15,7 +17,7 @@ import java.util.Optional;
 public class NPC extends MovingEntity{
 
     private int hp;
-    private boolean isAlive;
+//    private boolean isAlive;
     private int damage;
     private Time timer;
     private Player target;
@@ -35,7 +37,7 @@ public class NPC extends MovingEntity{
 
         //just to reduce monster speed, have to change this later.
         effects.add(new Caffeinated());
-        animationManager = new AnimationManager(spriteLibrary.getUnit("dave"));
+        animationManager = new AnimationManager(spriteLibrary.getUnit("enemy"));
         aiManager = new AIManager();
     }
     @Override
@@ -44,12 +46,24 @@ public class NPC extends MovingEntity{
         aiManager.update(state, this);
         handleTarget(state);
         timer.update();
+        if(!isAlive()){
+            this.movement.stop();
+            this.perform(new Death());
+            animationManager.playDeathAnimation();
 
-
-
-
+        }
 
     }
+
+    public void test(){
+        if(!isAlive){
+            this.perform(new Death());
+        }
+    }
+
+
+
+
     //If npc collides with me, they stop ( varetu apvienot ar kkadu npc.attack())
     @Override
     protected void handleCollision(GameObject other) {
@@ -59,6 +73,7 @@ public class NPC extends MovingEntity{
             movement.stop();
 
             if(timer.getSeconds() > ATTACK_SPEED){
+
                 attack();
                 timer.reset();
 
@@ -69,10 +84,16 @@ public class NPC extends MovingEntity{
 
 
     public void attack() {
+        System.out.println("PERFORMING ATTACK ACTION");
 
-        if(target != null){
+        if(target != null && isAlive()){
+            this.isAttacking = true;
+
             target.subtractHealth(damage);
+            this.perform(new Attack());
             System.out.println("NPC just did " + damage +" damage to you and left you with " +target.getHp() +" hp");
+            this.cleanup();
+
 //            System.out.println(target.getHp());
 
         }
@@ -94,6 +115,7 @@ public class NPC extends MovingEntity{
         if(this.hp > 0){
             return isAlive;
         } else {
+
             return !isAlive;
         }
 

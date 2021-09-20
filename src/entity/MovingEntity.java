@@ -22,17 +22,25 @@ public abstract class MovingEntity extends GameObject{
     protected Direction direction;
     protected List<Effect> effects;
     protected Optional<Action> action;
+    protected boolean isAlive;
     protected Vector2D directionVector;
-
+    protected boolean isAttacking;
     protected Size collisionBoxSize;
+
+    public boolean isAttacking() {
+        return isAttacking;
+    }
 
     public MovingEntity(EntityController entityController, SpriteLibrary spriteLibrary) {
         super();
         this.entityController = entityController;
         this.movement = new Movement(2);
-        this.animationManager = new AnimationManager(spriteLibrary.getUnit("matt"));
+        this.animationManager = new AnimationManager(spriteLibrary.getUnit("enemy"));
         this.direction = Direction.S;
         this.directionVector = new Vector2D(0,0);
+
+        this.isAttacking = false;
+
         effects = new ArrayList<>();
         action = Optional.empty();
         this.collisionBoxSize = new Size(16, 30);
@@ -51,7 +59,6 @@ public abstract class MovingEntity extends GameObject{
         handleCollisions(state);
         manageDirection();
         decideAnimation();
-
         position.apply(movement);
 
         cleanup();
@@ -80,7 +87,7 @@ public abstract class MovingEntity extends GameObject{
         }
     }
 
-    private void cleanup(){
+    public void cleanup(){
         List.copyOf(effects).stream()
                 .filter(Effect::shouldDelete)
                 .forEach(effects::remove);
@@ -91,7 +98,9 @@ public abstract class MovingEntity extends GameObject{
     }
 
     protected void decideAnimation(){
-
+        if(!isAlive){
+            animationManager.playDeathAnimation();
+        }
         if(action.isPresent() ){
             animationManager.playAnimation(action.get().getAnimationName());
         }

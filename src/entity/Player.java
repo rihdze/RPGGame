@@ -3,6 +3,7 @@ package entity;
 import controllers.EntityController;
 import core.Position;
 import databases.Weapons;
+import entity.action.Attack;
 import game.Game;
 import state.State;
 import gfx.SpriteLibrary;
@@ -17,8 +18,9 @@ public class Player extends MovingEntity{
     private String userName;
     private int hp;
     private int damage;
-
+    private boolean attacking;
     private NPC target;
+
 
     //MBY I COULD USE THIS FOR NPC'S TO LOCK ON ME WHEN I GO TOO CLOSE TO THEM
     private double targetRange;
@@ -28,6 +30,8 @@ public class Player extends MovingEntity{
     public Player(String userName, EntityController entityController, SpriteLibrary spriteLibrary, SelectionCircle selectionCircle){
 
         super(entityController, spriteLibrary);
+        this.attacking = false;
+        this.isAlive = true;
         this.userName = userName;
         this.selectionCircle = selectionCircle;
         this.targetRange = Game.SPRITE_SIZE;
@@ -72,19 +76,26 @@ public class Player extends MovingEntity{
 
 
     private void handleInput(State state) {
+
+
+
         if(entityController.isRequestingAction()){
 
 //            System.out.println(this.position.getX() + " " + this.position.getY()); test
-            if(target != null){
-
+            if(target != null && target.isAlive()){
+                this.attacking = true;
+                this.perform(new Attack());
                 target.subtractHealth(damage);
                 System.out.println("Enemy hp: " + target.getHp());
-                state.removeNPC(target);
+                this.cleanup();
+//                state.removeNPC(target);
             }
         }
     }
 
-
+    public boolean isAttacking() {
+        return attacking;
+    }
 
     public int getHp() {
         return hp;

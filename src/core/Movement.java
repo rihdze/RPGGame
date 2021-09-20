@@ -59,4 +59,13 @@ public class Movement {
 
         return direction;
     }
+
+
+    public void increaseSpeed(double speed){
+        this.speed += speed;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
 }

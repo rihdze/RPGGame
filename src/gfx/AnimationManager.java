@@ -48,6 +48,14 @@ public class AnimationManager {
         }
     }
 
+
+    public void playDeathAnimation(){
+        this.currentAnimationSheet = (BufferedImage)spriteSet.get("death");
+        currentAnimationName= "death";
+        frameIndex = 3;
+    }
+
+
     public void playAnimation(String name){
         if(!name.equals(currentAnimationName)){
             this.currentAnimationSheet = (BufferedImage)spriteSet.get(name);

@@ -20,12 +20,15 @@ public class Game {
     private GameSettings settings;
     private GameController gameController;
 
+
+
     public Game(int width, int height) throws SQLException {
         input = new Input();
         display = new Display(width, height, input);
         settings = new GameSettings(true);
         state = new MenuState(new Size(width, height), input, settings);
         gameController = new GameController(input);
+
     }
 
     public void update() {

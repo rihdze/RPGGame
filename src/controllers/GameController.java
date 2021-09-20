@@ -1,5 +1,7 @@
 package controllers;
 
+import core.Movement;
+import entity.Player;
 import game.Game;
 import input.Input;
 
@@ -20,6 +22,8 @@ public class GameController {
         // increase game speed
         if(input.isPressed(KeyEvent.VK_Y)){
             game.getSettings().increaseGameSpeed();
+
+
         }
         // decrease game speed
         if(input.isPressed(KeyEvent.VK_U)){

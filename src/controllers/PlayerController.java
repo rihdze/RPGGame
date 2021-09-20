@@ -36,6 +36,8 @@ public class PlayerController implements EntityController {
         return input.isPressed(KeyEvent.VK_SPACE);
     }
 
+    public boolean isRequestingAttack(){return input.isCurrentlyPressed(KeyEvent.VK_E);}
+
     @Override
     public boolean isRequesting1() {return input.isPressed(KeyEvent.VK_1); }
 
