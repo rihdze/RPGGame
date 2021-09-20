@@ -2,6 +2,7 @@ package entity;
 
 import controllers.EntityController;
 import core.Position;
+import databases.Potions;
 import databases.Weapons;
 import entity.action.Attack;
 import game.Game;
