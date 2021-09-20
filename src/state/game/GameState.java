@@ -55,17 +55,7 @@ public class GameState extends State {
     private void initializeCharacters(String userName) throws SQLException {
         SelectionCircle circle = new SelectionCircle();
         Player player = new Player(userName, new PlayerController(input), spriteLibrary, circle);
-        ArrayList<Integer> loadPlayer = player.playerInventory(userName);
-        // for (int i : loadPlayer) {
-        //     if (i > 1000 && i < 2000) {
-        //create objects of type weapons
-        //        loadWeapons(i);
-        //     }
-        //      if (i > 2000 && i < 3000) {
-        //create objects of type potions
-        //           loadPotions(i);
-        //       }
-        //    }
+
         gameObjects.add(player);
         camera.focusOn(player);
         gameObjects.add(circle);

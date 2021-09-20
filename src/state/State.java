@@ -17,6 +17,7 @@ import core.Position;
 import core.Size;
 
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -61,9 +62,11 @@ public abstract class State {
         return gameMap;
     }
 
-    public void update(Game game){
-        audioPlayer.update();
+
+
+    public void update(Game game) throws SQLException {
         time.update();
+        audioPlayer.update();
         sortObjectsByPosition();
         updateGameObjects();
         List.copyOf(uiContainers).forEach(uiContainer -> uiContainer.update(this));
@@ -84,7 +87,8 @@ public abstract class State {
         input.clearMouseClick();
     }
 
-    protected  void updateGameObjects() {
+
+    protected  void updateGameObjects() throws SQLException {
         for(int i = 0; i < gameObjects.size(); i++){
             gameObjects.get(i).update(this);
         }

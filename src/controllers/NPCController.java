@@ -41,6 +41,21 @@ public class NPCController implements EntityController {
         return right;
     }
 
+    @Override
+    public boolean isRequestingQ(){
+        return false;
+    }
+
+    @Override
+    public boolean isRequestingW(){
+        return false;
+    }
+
+    @Override
+    public boolean isRequestingE(){
+        return false;
+    }
+
     public void moveToTarget(Position target, Position current) {
         double deltaX = target.getX() - current.getX();
         double deltaY = target.getY() - current.getY();

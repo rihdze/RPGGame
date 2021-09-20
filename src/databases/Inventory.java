@@ -6,38 +6,6 @@ import java.util.ArrayList;
 
 public class Inventory extends Component {
 
-    //TESTS:
-   // public static void main(String[] args) throws SQLException {
-
-       // load all Weapon ID numbers into array(playerInventory) from an existing user in database table(userName);
-      // ArrayList<Integer> loadPlayer = playerInventory("userName1");
-       // for (int i : loadPlayer) {
-       //     if (i > 1000 && i < 2000) {
-                //create objects of type weapons
-        //        loadWeapons(i);
-       //     }
-      //      if (i > 2000 && i < 3000) {
-                //create objects of type potions
-     //           loadPotions(i);
-     //       }
-    //    }
-
-       // adds item (ID 2003) to user: userName1
-      /*
-       addItem(1003, "userName1");
-       addItem(1003, "userName1");
-       addItem(1003, "userName1");
-        addItem(1003, "userName1");
-
-     */
-        // Creates new user by username
-       // createNewUser("userName2");
-      //  removeItem(1003, "userName1");
-
-       // saveInventory(loadPlayer, "userName2");
-
-
- //   }
 
 
 
@@ -80,7 +48,7 @@ public class Inventory extends Component {
                 statement3.execute(sql);
                 ResultSet result = statement3.getResultSet();
 
-                Potions potion = new Potions(result.getString("potionName_DB"), result.getInt("potionBoost_DB"), result.getString("potionType_DB"), result.getInt("potionTime_DB"));
+                Potions potion = new Potions(result.getInt("potionID_DB"), result.getString("potionName_DB"), result.getInt("potionBoost_DB"), result.getString("potionType_DB"), result.getInt("potionTime_DB"));
 
                 System.out.println("A new potion named " + result.getString("potionName_DB") + " has been found.");
                 result.close();

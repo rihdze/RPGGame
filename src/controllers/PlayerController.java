@@ -44,5 +44,15 @@ public class PlayerController implements EntityController {
     @Override
     public boolean isRequesting2() { return input.isPressed(KeyEvent.VK_2); }
 
+    @Override
+    public boolean isRequestingQ() {return input.isPressed(KeyEvent.VK_Q); }
+
+    @Override
+    public boolean isRequestingW() { return input.isPressed(KeyEvent.VK_W); }
+
+    @Override
+    public boolean isRequestingE() {return input.isPressed(KeyEvent.VK_E); }
+
+
 
 }
