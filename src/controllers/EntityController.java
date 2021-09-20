@@ -9,5 +9,8 @@ public interface EntityController {
     boolean isRequestingAction();
     boolean isRequesting1();
     boolean isRequesting2();
+    boolean isRequestingQ();
+    boolean isRequestingW();
+    boolean isRequestingE();
 
 }

@@ -9,6 +9,7 @@ import gfx.AnimationManager;
 import gfx.SpriteLibrary;
 
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -42,7 +43,7 @@ public abstract class MovingEntity extends GameObject{
 
 
     @Override
-    public void update(State state){
+    public void update(State state) throws SQLException {
         handleAction(state);
         handleMotion();
 

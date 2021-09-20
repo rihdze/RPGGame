@@ -9,6 +9,7 @@ import state.State;
 import gfx.AnimationManager;
 import gfx.SpriteLibrary;
 
+import java.sql.SQLException;
 import java.util.Comparator;
 import java.util.Optional;
 
@@ -39,7 +40,7 @@ public class NPC extends MovingEntity{
         aiManager = new AIManager();
     }
     @Override
-    public void update(State state){
+    public void update(State state) throws SQLException {
         super.update(state);
         aiManager.update(state, this);
         handleTarget(state);

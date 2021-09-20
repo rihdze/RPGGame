@@ -28,7 +28,7 @@ public class Game {
         gameController = new GameController(input);
     }
 
-    public void update() {
+    public void update() throws SQLException {
         state.update(this);
         gameController.update(this);
     }

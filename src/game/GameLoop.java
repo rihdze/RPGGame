@@ -1,5 +1,7 @@
 package game;
 
+import java.sql.SQLException;
+
 public class GameLoop implements Runnable{
     private Game game;
     public static final int UPDATES_PER_SECOND = 60;
@@ -28,7 +30,11 @@ public class GameLoop implements Runnable{
 
             if(accumulator >= updateRate) {
                 while(accumulator>updateRate){
-                    update();
+                    try {
+                        update();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                     accumulator -= updateRate;
                 }
 
@@ -42,14 +48,14 @@ public class GameLoop implements Runnable{
 
     private void printStats() {
         if(System.currentTimeMillis() > nextStatTime){
-            System.out.println(String.format("FPS: %d, UPS: %d", fps, ups));
+            //System.out.println(String.format("FPS: %d, UPS: %d", fps, ups));
             fps = 0;
             ups = 0;
             nextStatTime = System.currentTimeMillis() + 1000;
         }
     }
 
-    private void update() {
+    private void update() throws SQLException {
         game.update();
         ups++;
     }

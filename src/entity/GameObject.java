@@ -9,6 +9,7 @@ import core.Size;
 
 
 import java.awt.*;
+import java.sql.SQLException;
 
 public abstract class GameObject {
 
@@ -29,7 +30,7 @@ public abstract class GameObject {
 
     }
 
-    public abstract void update(State state);
+    public abstract void update(State state) throws SQLException;
 
     public abstract CollisionBox getCollisionBox();
 
