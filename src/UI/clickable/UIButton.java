@@ -52,7 +52,7 @@ public class UIButton extends UIClickable{
     }
 
     @Override
-    protected void onDrag(State state) {
+    public void onDrag(State state) {
 
     }
 
@@ -62,7 +62,9 @@ public class UIButton extends UIClickable{
     }
 
     @Override
-    protected void onClick(State state) throws SQLException {
-        clickAction.execute(state);
+    public void onClick(State state) throws SQLException {
+        if(hasFocus){
+            clickAction.execute(state);
+        }
     }
 }

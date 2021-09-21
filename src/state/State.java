@@ -12,6 +12,8 @@ import game.Time;
 import game.settings.GameSettings;
 import gfx.SpriteLibrary;
 import input.Input;
+import input.mouse.MouseHandler;
+import io.MapIO;
 import map.GameMap;
 import core.Position;
 import core.Size;
@@ -29,6 +31,7 @@ public abstract class State {
     protected List<GameObject> gameObjects;
     protected List<UIContainer> uiContainers;
     protected SpriteLibrary spriteLibrary;
+    protected MouseHandler mouseHandler;
     protected GameMap gameMap;
     protected Input input;
     protected Camera camera;
@@ -36,6 +39,7 @@ public abstract class State {
     protected Size windowSize;
     private State nextState;
     private GameSettings gameSettings;
+
 
     public Camera getCamera() {
         return camera;
@@ -55,6 +59,7 @@ public abstract class State {
         spriteLibrary = new SpriteLibrary();
         camera = new Camera(windowSize);
         time = new Time();
+        mouseHandler = new MouseHandler();
 
     }
 
@@ -71,20 +76,12 @@ public abstract class State {
         updateGameObjects();
         List.copyOf(uiContainers).forEach(uiContainer -> uiContainer.update(this));
         camera.update(this);
-        handleMouseInput();
+        mouseHandler.update(this);
 
         if(nextState != null){
             game.enterState(nextState);
         }
 
-    }
-
-    private void handleMouseInput() {
-        if(input.isMouseClicked()){
-            System.out.println(String.format("MOUSE CLICK AT POSITION x:%d, y:%d", input.getMousePosition().intX(), input.getMousePosition().intY()));
-        }
-
-        input.clearMouseClick();
     }
 
 
@@ -159,5 +156,18 @@ public abstract class State {
 
     public void cleanUp() {
         audioPlayer.clear();
+    }
+
+    public MouseHandler getMouseHandler() {
+        return mouseHandler;
+    }
+
+    public SpriteLibrary getSpriteLibrary() {
+        return spriteLibrary;
+    }
+
+    public void loadGameMap() {
+
+        gameMap = MapIO.load(spriteLibrary);
     }
 }

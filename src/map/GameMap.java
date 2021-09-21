@@ -5,14 +5,18 @@ import game.Game;
 import gfx.SpriteLibrary;
 import core.Position;
 import core.Size;
+import io.Persistable;
 
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class GameMap {
+public class GameMap implements Persistable {
 
     private static final int SAFETY_SPACE = 2;
     private Tile[][] tiles;
+
+    public GameMap(){}
 
     public GameMap(Size size, SpriteLibrary spriteLibrary) {
         tiles = new Tile[size.getWidth()][size.getHeight()];
@@ -60,5 +64,64 @@ public class GameMap {
                 Math.min(tiles[0].length, camera.getPosition().getY() / Game.SPRITE_SIZE + camera.getSize().getHeight() / Game.SPRITE_SIZE + SAFETY_SPACE)
 
         );
+    }
+
+    public boolean griWithinBounds(int gridX, int gridY) {
+        return gridX >= 0 && gridX < tiles.length
+                && gridY >= 0 && gridY < tiles[0].length;
+    }
+
+    public void setTile(int gridX, int gridY, Tile tile) {
+        tiles[gridX][gridY] = tile;
+    }
+
+    public void reloadGraphics(SpriteLibrary spriteLibrary){
+        for(Tile[] row: tiles){
+            for(Tile tile : row){
+                tile.reloadGraphics(spriteLibrary);
+            }
+        }
+    }
+
+    @Override
+    public String serialize() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(this.getClass().getSimpleName());
+        stringBuilder.append(DELIMITER);
+        stringBuilder.append(tiles.length);
+        stringBuilder.append(DELIMITER);
+        stringBuilder.append(tiles[0].length);
+        stringBuilder.append(DELIMITER);
+
+        stringBuilder.append(SECTION_DELIMITER);
+        for(int x = 0; x < tiles.length; x++){
+            for(int y = 0; y < tiles[0].length; y++){
+                stringBuilder.append(tiles[x][y].serialize());
+                stringBuilder.append(LIST_DELIMITER);
+            }
+            stringBuilder.append(COLUMN_DELIMITER);
+        }
+
+        return stringBuilder.toString();
+    }
+
+    @Override
+    public void applySerializedData(String serializeData) {
+        String[] tokens = serializeData.split(DELIMITER);
+        tiles = new Tile[Integer.parseInt(tokens[1])][Integer.parseInt(tokens[2])];
+
+        String tileSection = serializeData.split(SECTION_DELIMITER)[1];
+        String[] columns = tileSection.split(COLUMN_DELIMITER);
+
+        for(int x = 0; x < tiles.length; x++){
+            String[] serializedTiles = columns[x].split(LIST_DELIMITER);
+            for(int y = 0; y < tiles[0].length; y++){
+                Tile tile = new Tile();
+                tile.applySerializedData(serializedTiles[y]);
+
+                tiles[x][y] = tile;
+            }
+        }
+
     }
 }

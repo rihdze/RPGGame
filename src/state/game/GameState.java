@@ -7,17 +7,15 @@ import entity.Effect.Sick;
 import entity.NPC;
 import entity.Player;
 import entity.SelectionCircle;
-import entity.action.Attack;
 import game.settings.GameSettings;
 import input.Input;
-import map.GameMap;
 import core.Size;
+import io.MapIO;
 import state.State;
 import state.game.ui.UIGameTime;
 import state.game.ui.UIHealth;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 
 public class GameState extends State {
@@ -25,7 +23,7 @@ public class GameState extends State {
     public GameState(Size windowSize, Input input, GameSettings gameSettings) throws SQLException {
         super(windowSize, input, gameSettings);
 
-        gameMap = new GameMap(new Size(50, 50), spriteLibrary);
+        gameMap = MapIO.load(spriteLibrary);
         initializeUI(windowSize);
         // have to pass the userName somehow after login:
         gameSettings.getRenderSettings().getShouldRenderGrib().setValue(false);

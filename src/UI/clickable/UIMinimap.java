@@ -36,6 +36,9 @@ public class UIMinimap extends UIClickable {
     public void update(State state) throws SQLException {
         super.update(state);
 
+        if(state.getTime().secondsDividableBy(0.25)){
+            generateMap(state.getGameMap());
+        }
         Camera camera = state.getCamera();
         cameraViewBounds = new Rectangle(
                 (int)(camera.getPosition().getX() * ratio + pixelOffset.intX()),
@@ -58,7 +61,7 @@ public class UIMinimap extends UIClickable {
         for(int x = 0; x < gameMap.getTiles().length; x++){
             for(int y = 0; y <gameMap.getTiles()[0].length; y++){
                 graphics.drawImage(
-                        gameMap.getTiles()[x][y].getSprite().getScaledInstance(pixelsPerGrid, pixelsPerGrid, 0),
+                        gameMap.getTiles()[x][y].getSprite().getScaledInstance(pixelsPerGrid, pixelsPerGrid, Image.SCALE_AREA_AVERAGING),
                         x * pixelsPerGrid + pixelOffset.intX(),
                         y * pixelsPerGrid + pixelOffset.intY(),
                         null
@@ -103,20 +106,20 @@ public class UIMinimap extends UIClickable {
     }
 
     @Override
-    protected void onDrag(State state) {
+    public void onDrag(State state) {
         Position mousePosition = Position.copyOf(state.getInput().getMousePosition());
         mousePosition.subtract(absolutePosition);
         mousePosition.subtract(pixelOffset);
         state.getCamera().setPosition(
                  new Position(
-                         mousePosition.getX() / ratio -cameraViewBounds.getSize().getWidth() / ratio / 2,
-                         mousePosition.getY() / ratio -cameraViewBounds.getSize().getHeight() / ratio / 2
+                         mousePosition.getX() / ratio - cameraViewBounds.getSize().getWidth() / ratio / 2,
+                         mousePosition.getY() / ratio - cameraViewBounds.getSize().getHeight() / ratio / 2
                  )
         );
     }
 
     @Override
-    protected void onClick(State state) throws SQLException {
+    public void onClick(State state)  {
 
     }
 }

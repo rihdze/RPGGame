@@ -4,6 +4,7 @@ import UI.UIContainer;
 import core.Size;
 import game.settings.GameSettings;
 import input.Input;
+import io.MapIO;
 import map.GameMap;
 import state.State;
 import state.menu.ui.UIMainMenu;
@@ -11,7 +12,8 @@ import state.menu.ui.UIMainMenu;
 public class MenuState extends State {
     public MenuState(Size windowSize, Input input, GameSettings gameSettings) {
         super(windowSize, input, gameSettings);
-        gameMap = new GameMap(new Size(20, 20), spriteLibrary);
+//        gameMap = new GameMap(new Size(20, 20), spriteLibrary);
+        gameMap = new GameMap(new Size(32, 32), spriteLibrary);
         gameSettings.getRenderSettings().getShouldRenderGrib().setValue(false);
 
         uiContainers.add(new UIMainMenu(windowSize));

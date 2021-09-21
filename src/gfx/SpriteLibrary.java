@@ -69,4 +69,8 @@ public class SpriteLibrary {
     public Image getTile(String name) {
         return tiles.get(name);
     }
+
+    public Image getImage(String name) {
+        return tiles.get(name);
+    }
 }
