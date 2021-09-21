@@ -40,5 +40,10 @@ public class Attack extends Action{
         return "attack";
     }
 
+    @Override
+    public String getSoundName() {
+        return "attack.wav";
+    }
+
 
 }

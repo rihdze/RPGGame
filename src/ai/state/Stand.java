@@ -12,7 +12,7 @@ public class Stand extends AIState{
     @Override
     protected AITransition initializeTransition() {
         setStateName("wander");
-        System.out.println("INITIALIZE TRANSITION FROM STAND");
+
         if(stateName.equals("lockontarget")){
             return toLockOnTarget();
         } else {

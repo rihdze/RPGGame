@@ -8,7 +8,7 @@ public class Caffeinated extends Effect{
 
     private double speedMultiplier;
 
-// * INT prieks duration in seconds
+// * INT for duration in seconds
     public Caffeinated() {
         super(GameLoop.UPDATES_PER_SECOND *5000);
         speedMultiplier = 0.75;

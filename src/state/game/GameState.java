@@ -28,7 +28,9 @@ public class GameState extends State {
         gameMap = new GameMap(new Size(50, 50), spriteLibrary);
         initializeUI(windowSize);
         // have to pass the userName somehow after login:
+
         initializeCharacters("userName1");
+        audioPlayer.playMusic("backgroundmusic.wav");
 
     }
 
@@ -55,6 +57,7 @@ public class GameState extends State {
     private void initializeCharacters(String userName) throws SQLException {
         SelectionCircle circle = new SelectionCircle();
         Player player = new Player(userName, new PlayerController(input), spriteLibrary, circle);
+
 
         gameObjects.add(player);
         camera.focusOn(player);

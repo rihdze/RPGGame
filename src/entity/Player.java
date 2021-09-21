@@ -1,10 +1,13 @@
 package entity;
 
 import controllers.EntityController;
+import core.Movement;
 import core.Position;
+import core.Vector2D;
 import databases.Potions;
 import databases.Weapons;
 import entity.action.Attack;
+import entity.action.WalkInDirection;
 import game.Game;
 import state.State;
 import gfx.SpriteLibrary;
@@ -42,7 +45,9 @@ public class Player extends MovingEntity{
         this.selectionCircle = selectionCircle;
         this.targetRange = Game.SPRITE_SIZE;
         this.hp = 100;
-
+        //THIS IS FOR WALKING INTO THE MAP AT THE START OF THE GAME
+        setPosition(new Position(Game.SPRITE_SIZE * 5, 0));
+        perform(new WalkInDirection(new Vector2D(0, 1)));
 
 //        Adds caffeinated effect = 2.5 speed for x amount of seconds (visu norada ieksa klase)
 //        effects.add(new Caffeinated());

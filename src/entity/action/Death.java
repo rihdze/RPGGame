@@ -26,4 +26,9 @@ public class Death extends Action{
     public String getAnimationName() {
         return "death";
     }
+
+    @Override
+    public String getSoundName() {
+        return null;
+    }
 }

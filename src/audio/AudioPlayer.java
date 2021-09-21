@@ -35,6 +35,7 @@ public class AudioPlayer {
     public void playMusic(String fileName){
         final Clip clip = getClip(fileName);
         final MusicClip musicClip = new MusicClip(clip);
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
         musicClip.setVolume(audioSettings);
         audioClips.add(new MusicClip(clip));
     }
@@ -66,6 +67,11 @@ public class AudioPlayer {
         }
 
         return null;
+    }
+
+    public void clear(){
+        audioClips.forEach(AudioClip::cleanUp);
+        audioClips.clear();
     }
 
 }

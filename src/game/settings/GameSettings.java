@@ -1,11 +1,13 @@
 package game.settings;
 
+import display.Render;
+
 public class GameSettings {
 
     private boolean debugMode;
     private double gameSpeedMultiplier;
     private AudioSettings audioSettings;
-
+    private final RenderSettings renderSettings;
 
 
 
@@ -13,6 +15,7 @@ public class GameSettings {
         this.debugMode = debugMode;
         gameSpeedMultiplier = 1;
         audioSettings = new AudioSettings();
+        renderSettings = new RenderSettings();
 
     }
 
@@ -38,6 +41,10 @@ public class GameSettings {
 
     public AudioSettings getAudioSettings() {
         return audioSettings;
+    }
+
+    public RenderSettings getRenderSettings() {
+        return renderSettings;
     }
 
 

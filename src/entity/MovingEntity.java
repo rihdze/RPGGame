@@ -9,8 +9,10 @@ import gfx.AnimationManager;
 import gfx.SpriteLibrary;
 
 import java.awt.*;
+import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +29,7 @@ public abstract class MovingEntity extends GameObject{
     protected Vector2D directionVector;
     protected boolean isAttacking;
     protected Size collisionBoxSize;
+    private static List<String> availableCharacters = new ArrayList<>(List.of("player", "enemy"));
 
     public boolean isAttacking() {
         return isAttacking;
@@ -36,7 +39,7 @@ public abstract class MovingEntity extends GameObject{
         super();
         this.entityController = entityController;
         this.movement = new Movement(2);
-        this.animationManager = new AnimationManager(spriteLibrary.getUnit("enemy"));
+        this.animationManager = new AnimationManager(spriteLibrary.getUnit(getRandomCharacter()));
         this.direction = Direction.S;
         this.directionVector = new Vector2D(0,0);
 
@@ -49,6 +52,12 @@ public abstract class MovingEntity extends GameObject{
         this.collisionBoxOffset = new Position(collisionBoxSize.getWidth()/2, collisionBoxSize.getHeight());
     }
 
+    private String getRandomCharacter() {
+
+        Collections.shuffle(availableCharacters);
+        return availableCharacters.get(0);
+    }
+
 
     @Override
     public void update(State state) throws SQLException {
@@ -58,11 +67,9 @@ public abstract class MovingEntity extends GameObject{
         animationManager.update(direction);
         effects.forEach(effect -> effect.update(state, this));
         handleCollisions(state);
-        manageDirection();
         decideAnimation();
 
-        position.apply(movement);
-
+        apply(movement);
         cleanup();
 
     }
@@ -84,9 +91,11 @@ public abstract class MovingEntity extends GameObject{
     }
 
     private void handleAction(State state) {
-        if(action.isPresent()){
-            action.get().update(state, this);
-        }
+        action.ifPresent(value -> {
+            value.update(state, this);
+            value.playSound(state.getAudioPlayer());
+        });
+
     }
 
     public void cleanup(){
@@ -113,7 +122,7 @@ public abstract class MovingEntity extends GameObject{
         }
     }
 
-    private void manageDirection() {
+    private void manageDirection(Movement movement) {
         if(movement.isMoving()){
             this.direction = Direction.fromMotion(movement);
             this.directionVector = movement.getDirection();
@@ -183,5 +192,9 @@ public abstract class MovingEntity extends GameObject{
     }
 
 
+    public void apply(Movement movement) {
+        manageDirection(movement);
 
+        position.apply(movement);
+    }
 }

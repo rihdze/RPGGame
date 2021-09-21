@@ -68,4 +68,8 @@ public class Movement {
     public void setSpeed(double speed) {
         this.speed = speed;
     }
+
+    public void add(Vector2D vector){
+        this.vector.add(vector);
+    }
 }

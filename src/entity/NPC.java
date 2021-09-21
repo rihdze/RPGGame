@@ -2,6 +2,7 @@ package entity;
 
 import ai.AIManager;
 import controllers.EntityController;
+import core.Movement;
 import entity.Effect.Caffeinated;
 import entity.action.Attack;
 import entity.action.Death;
@@ -35,10 +36,11 @@ public class NPC extends MovingEntity{
         this.hp = 100;
         this.damage = 10;
         this.isAlive = true;
-
+        //Change movement speed for monsters.
+        movement = new Movement(Math.random() + 1);
         //just to reduce monster speed, have to change this later.
         effects.add(new Caffeinated());
-        animationManager = new AnimationManager(spriteLibrary.getUnit("enemy"));
+//        animationManager = new AnimationManager(spriteLibrary.getUnit("enemy"));
         aiManager = new AIManager();
     }
     @Override
@@ -85,7 +87,7 @@ public class NPC extends MovingEntity{
 
 
     public void attack() {
-        System.out.println("PERFORMING ATTACK ACTION");
+
 
         if(target != null && isAlive()){
             this.isAttacking = true;

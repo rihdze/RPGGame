@@ -1,5 +1,6 @@
 package UI.clickable;
 
+import UI.Spacing;
 import core.Size;
 import gfx.ImageUtils;
 import state.State;
@@ -20,6 +21,7 @@ public class UISlider extends UIClickable{
         this.max = max;
         this.value = max;
         this.size = new Size(360, 10);
+        this.margin = new Spacing(0,0,10,0);
 
     }
 
@@ -60,6 +62,10 @@ public class UISlider extends UIClickable{
 
     @Override
     protected void onClick(State state){}
+
+    public void setValue(double value) {
+        this.value = value;
+    }
 
     private double getValueAt(double xPos) {
         double positionOnSlider = xPos - absolutePosition.getX();
