@@ -19,7 +19,7 @@ import java.util.Optional;
 public class NPC extends MovingEntity{
 
     private int hp;
-//    private boolean isAlive;
+    private boolean isAlive;
     private int damage;
     private Time timer;
     private Player target;
@@ -40,7 +40,7 @@ public class NPC extends MovingEntity{
         movement = new Movement(Math.random() + 1);
         //just to reduce monster speed, have to change this later.
         effects.add(new Caffeinated());
-//        animationManager = new AnimationManager(spriteLibrary.getUnit("enemy"));
+        animationManager = new AnimationManager(spriteLibrary.getUnit("enemy"));
         aiManager = new AIManager();
     }
     @Override
@@ -97,10 +97,7 @@ public class NPC extends MovingEntity{
             System.out.println("NPC just did " + damage +" damage to you and left you with " +target.getHp() +" hp");
             this.cleanup();
 
-//            System.out.println(target.getHp());
-
         }
-
 
 
     }

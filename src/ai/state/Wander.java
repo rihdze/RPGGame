@@ -23,7 +23,7 @@ public class Wander extends AIState{
     protected AITransition initializeTransition() {
 
 
-
+   //     System.out.println("INITIALIZE TRANSITION FROM WANDER");
 //        if(stateName.equals("wander")){
 //            return toWander();
          if(stateName.equals("lockontarget")){
