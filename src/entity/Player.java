@@ -4,6 +4,7 @@ import controllers.EntityController;
 import core.Movement;
 import core.Position;
 import core.Vector2D;
+import databases.Inventory;
 import databases.Potions;
 import databases.Weapons;
 import entity.action.Attack;
@@ -223,9 +224,7 @@ public class Player extends MovingEntity{
     }
 
 
-    private void handleInput(State state) {
-
-
+    private void handleInput(State state) throws SQLException {
 
         if(entityController.isRequestingAction()){
 
@@ -239,6 +238,36 @@ public class Player extends MovingEntity{
 //                state.removeNPC(target);
                 
             }
+
+            if(target != null && !target.isAlive()) {
+                Random rWeapon = new Random();
+                int minW = 1001;
+                int maxW = 1008;
+                int w = (int)(Math.random()*(maxW-minW+1)+minW);
+                Random rPotion = new Random();
+                int minP = 2001;
+                int maxP = 2005;
+                int p = (int)(Math.random()*(maxP-minP+1)+minP);
+                Random rPotionWeaponOrNothing = new Random();
+                int min = 1;
+                int max = 3;
+                int rLoot = (int)(Math.random()*(max-min+1)+min);
+                if (rLoot == 1) {
+                Inventory.addItem(w, "userName1");
+                    state.removeNPC(target);
+                }
+                if (rLoot == 2) {
+                Inventory.addItem(p, "userName1");
+                    state.removeNPC(target);
+                }
+                if (rLoot == 3) {
+                System.out.println(" You searched the NPC's body, but found nothing ... ");
+                    state.removeNPC(target);
+                }
+
+            }
+
+
         }
     }
 
