@@ -54,6 +54,11 @@ public class Camera {
             calculateViewBounds();
         }
     }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
     // makes sure you can't go out of bounds
     private void clampWithinBound(State state) {
         if(position.getX()< 0){
