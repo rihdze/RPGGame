@@ -11,23 +11,22 @@ import entity.action.WalkInDirection;
 import game.Game;
 import state.State;
 import gfx.SpriteLibrary;
-
+import core.Movement;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Optional;
+import java.util.*;
 
 
 public class Player extends MovingEntity{
     private String userName;
     private int hp;
     private int damage;
+    private int damageBoost = 0;
     private boolean attacking;
     int nexti = 0;
     int nextj = 0;
     Potions potion;
     Weapons weapon;
-
+;
     private NPC target;
 
 
@@ -106,7 +105,6 @@ public class Player extends MovingEntity{
             String pathToDb = cwd + "\\src\\databases\\gameDB.db";
             Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathToDb);
             String sql = "SELECT DISTINCT ItemsID FROM " + userName + ";";
-           // String sql = "SELECT n1, n2, n3, n4, n5, n6, n7, n8, n9, n10, n11, n12, n13, n14 FROM usersDB WHERE userNameDB == "+userName+";";
             Statement statement = conn.createStatement();
             statement.execute(sql);
             ResultSet IDs = statement.getResultSet();
@@ -162,20 +160,36 @@ public class Player extends MovingEntity{
         try{
             if (entityController.isRequestingE()){
                 if (playerPotions("userName1").size() > 0) {
-                    if (potion.getPotionType_DB().equals("\"Health\"")) {
-                        System.out.println("you have restored health");
-                        hp += potion.getPotionBoost_DB();
-                        Potions.removePotions("userName1", potion.getPotionID_DB());
+                    switch (potion.getPotionType_DB()) {
+                        case ("\"Health\""):
+                            hp += potion.getPotionBoost_DB();
+                            System.out.println("you have restored health");
+                            Potions.removePotions("userName1", potion.getPotionID_DB());
+                            if (playerPotions("userName1").size() > 0) {
+                                potion = Potions.loadPotions(playerPotions("userName1").get(playerPotions("userName1").size()-1));
+                                System.out.println("Potion switched to " + potion.getPotionName_DB());
 
-                    }
-                    if (potion.getPotionType_DB().equals("\"Damage\"")) {
-                        System.out.println("you have increased your damage output");
-                        damage += potion.getPotionBoost_DB();
-                        Potions.removePotions("userName1", potion.getPotionID_DB());
-                    }
-                    if (potion.getPotionType_DB().equals("\"Speed\"")) {
-                        System.out.println("you have increased your speed");
-                        Potions.removePotions("userName1", potion.getPotionID_DB());
+                            } nextj = 0; break;
+                        case ("\"Damage\""):
+                            damageBoost = potion.getPotionBoost_DB();
+                            System.out.println("you have increased your damage output");
+                            Potions.removePotions("userName1", potion.getPotionID_DB());
+                            Timer damageBoostTime = new Timer();
+                            damageBoostTime.schedule(new TimerTask() {
+                                @Override
+                                public void run() {damageBoost = 0; System.out.println("damage boost ended");}}, 5000);
+                            if (playerPotions("userName1").size() > 0) {
+                                potion = Potions.loadPotions(playerPotions("userName1").get(playerPotions("userName1").size()-1));
+                                System.out.println("Potion switched to " + potion.getPotionName_DB());
+                            } nextj = 0; break;
+                        case ("\"Speed\""):
+                           Movement speedBoost = new Movement(20);
+                            System.out.println("you have increased your speed");
+                            Potions.removePotions("userName1", potion.getPotionID_DB());
+                            if (playerPotions("userName1").size() > 0) {
+                                potion = Potions.loadPotions(playerPotions("userName1").get(playerPotions("userName1").size()-1));
+                                System.out.println("Potion switched to " + potion.getPotionName_DB());
+                            } nextj = 0; break;
                     }
                 } else {System.out.println("no potions left");}
             }
@@ -218,7 +232,7 @@ public class Player extends MovingEntity{
             if(target != null && target.isAlive()){
                 this.attacking = true;
                 this.perform(new Attack());
-                target.subtractHealth(damage);
+                target.subtractHealth(damage + damageBoost);
                 System.out.println("Enemy hp: " + target.getHp());
                 this.cleanup();
 //                state.removeNPC(target);
@@ -268,7 +282,6 @@ public class Player extends MovingEntity{
             npc.clearEffect();
         }
     }
-
 
 
     public void attack(NPC npc){

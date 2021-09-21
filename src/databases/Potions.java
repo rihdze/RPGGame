@@ -18,6 +18,7 @@ public class Potions {
         this.potionTime_DB = potionTime_DB;
     }
 
+
     public String getPotionName_DB() { return potionName_DB; }
 
     public int getPotionBoost_DB() { return potionBoost_DB; }
