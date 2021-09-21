@@ -68,14 +68,20 @@ public class Player extends MovingEntity{
 
     }
 
-
     // switch next weapon from "userName" DB with button "2"
     private int handleWeapons2(State state) throws SQLException {
         if (nexti < playerWeapons("userName1").size()) {
             if (entityController.isRequesting2()) {
+                System.out.println(" how many weapons: "+playerWeapons("userName1").size());
+                System.out.println(" nexti is before loading to weapon: "+nexti);
                 weapon = Weapons.loadWeapons(playerWeapons("userName1").get(nexti));
-                this.nexti++;
                 damage = weapon.getWeaponDamage_DB();
+                this.nexti = nexti + 1;
+                System.out.println(" nexti is after loading: "+nexti);
+                if (nexti > playerWeapons("userName1").size()) {
+                    this.nexti = nexti - 1;
+                }
+                System.out.println(" nexti final before ending is: "+nexti);
                 System.out.println("Weapon switched to " + weapon.getWeaponName_DB());
                 return this.nexti;
             } else {
@@ -88,9 +94,10 @@ public class Player extends MovingEntity{
     private int handleWeapons1(State state) throws SQLException {
         if (nexti > 1) {
             if (entityController.isRequesting1()) {
-                --nexti;
+                nexti -= 1;
                 weapon = Weapons.loadWeapons(playerWeapons("userName1").get(nexti-1));
                 damage = weapon.getWeaponDamage_DB();
+                if (nexti > playerWeapons("userName1").size()) { nexti -= 1; }
                 System.out.println("Weapon switched to " + weapon.getWeaponName_DB());
                 return this.nexti;
             } else {
@@ -169,7 +176,6 @@ public class Player extends MovingEntity{
                             if (playerPotions("userName1").size() > 0) {
                                 potion = Potions.loadPotions(playerPotions("userName1").get(playerPotions("userName1").size()-1));
                                 System.out.println("Potion switched to " + potion.getPotionName_DB());
-
                             } nextj = 0; break;
                         case ("\"Damage\""):
                             damageBoost = potion.getPotionBoost_DB();
@@ -178,14 +184,17 @@ public class Player extends MovingEntity{
                             Timer damageBoostTime = new Timer();
                             damageBoostTime.schedule(new TimerTask() {
                                 @Override
-                                public void run() {damageBoost = 0; System.out.println("damage boost ended");}}, 5000);
+                                public void run() {damageBoost = 0; System.out.println("... damage boost ended");}}, 5000);
                             if (playerPotions("userName1").size() > 0) {
                                 potion = Potions.loadPotions(playerPotions("userName1").get(playerPotions("userName1").size()-1));
                                 System.out.println("Potion switched to " + potion.getPotionName_DB());
                             } nextj = 0; break;
                         case ("\"Speed\""):
-                            state.getPlayer().movement = new Movement(20);
-//                           Movement speedBoost = new Movement(20);
+                            state.getPlayer().movement = new Movement(4);
+                            Timer speedBoostTime = new Timer();
+                            speedBoostTime.schedule(new TimerTask() {
+                                @Override
+                                public void run() { state.getPlayer().movement = new Movement(2);; System.out.println("... speed boost ended");}}, 5000);
                             System.out.println("you have increased your speed");
                             Potions.removePotions("userName1", potion.getPotionID_DB());
                             if (playerPotions("userName1").size() > 0) {
@@ -223,11 +232,9 @@ public class Player extends MovingEntity{
         }
     }
 
-
+    boolean looted;
     private void handleInput(State state) throws SQLException {
-
         if(entityController.isRequestingAction()){
-
 //            System.out.println(this.position.getX() + " " + this.position.getY()); test
             if(target != null && target.isAlive()){
                 this.attacking = true;
@@ -235,38 +242,29 @@ public class Player extends MovingEntity{
                 target.subtractHealth(damage + damageBoost);
                 System.out.println("Enemy hp: " + target.getHp());
                 this.cleanup();
-//                state.removeNPC(target);
-                
+                looted = false;
             }
 
-            if(target != null && !target.isAlive()) {
+            if(target != null && !target.isAlive() && !looted) {
                 Random rWeapon = new Random();
                 int minW = 1001;
-                int maxW = 1008;
+                int maxW = 1005;
                 int w = (int)(Math.random()*(maxW-minW+1)+minW);
                 Random rPotion = new Random();
                 int minP = 2001;
                 int maxP = 2005;
                 int p = (int)(Math.random()*(maxP-minP+1)+minP);
-                Random rPotionWeaponOrNothing = new Random();
+                // set chance of weapon and potion finding below:
+                Random rGlobal = new Random();
                 int min = 1;
-                int max = 3;
+                int max = 10;
                 int rLoot = (int)(Math.random()*(max-min+1)+min);
-                if (rLoot == 1) {
-                Inventory.addItem(w, "userName1");
-                    state.removeNPC(target);
-                }
-                if (rLoot == 2) {
-                Inventory.addItem(p, "userName1");
-                    state.removeNPC(target);
-                }
-                if (rLoot == 3) {
-                System.out.println(" You searched the NPC's body, but found nothing ... ");
-                    state.removeNPC(target);
-                }
-
+                if (rLoot == 1 || rLoot == 2) { Inventory.addItem(w, "userName1"); }
+                if (rLoot == 3 || rLoot == 4 || rLoot == 5) { Inventory.addItem(p, "userName1");}
+                if (rLoot > 5) {System.out.println(" You searched the dead body, but found nothing ... ");}
+                looted = true;
+                //state.removeNPC(target);
             }
-
 
         }
     }

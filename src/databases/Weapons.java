@@ -18,11 +18,11 @@ public class Weapons {
 
     public static Weapons loadWeapons(int id) {
         try {
-              //  if (id > 1000 && id < 2000) {
+              //if (id > 1000 && id < 2000) {
                     String cwd = System.getProperty("user.dir");
                     String pathToDb = cwd+"\\src\\databases\\gameDB.db";
                     Connection conn4 = DriverManager.getConnection("jdbc:sqlite:" + pathToDb);
-                    String sql = "SELECT DISTINCT * FROM weaponsDB WHERE WeaponID_DB = " + id + ";";
+                    String sql = "SELECT * FROM weaponsDB WHERE WeaponID_DB = " + id + ";";
                     Statement statement4 = conn4.createStatement();
                     statement4.execute(sql);
                     ResultSet result1 = statement4.getResultSet();
@@ -34,12 +34,13 @@ public class Weapons {
                     statement4.close();
                     conn4.close();
                     return weapon;
-                //}
+              // }
             }
                 catch (SQLException e) {
                 System.out.println("Weapon ID out of bounds");
                 return null;
                 }
+       // return null;
     }
 
 
