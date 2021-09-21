@@ -38,15 +38,28 @@ public class Render {
         GameMap map = state.getGameMap();
         Tile[][] tiles = state.getGameMap().getTiles();
         Camera camera = state.getCamera();
+
         Position start = map.getViewableStartingGridPosition(camera);
         Position end = map.getViewableEndingGridPosition(camera);
+
         for(int x = start.intX(); x < end.intX(); x++){
             for(int y = start.intY() ; y < end.intY(); y++){
                 graphics.drawImage(
                         map.getTiles()[x][y].getSprite(),
                         x * Game.SPRITE_SIZE - camera.getPosition().intX(),
                         y * Game.SPRITE_SIZE - camera.getPosition().intY(), null);
+
+
+                if(state.getGameSettings().getRenderSettings().getShouldRenderGrib().getValue()){
+                    graphics.setColor(Color.GRAY);
+                    graphics.drawRect(x * Game.SPRITE_SIZE - camera.getPosition().intX(),
+                            y * Game.SPRITE_SIZE - camera.getPosition().intY(), Game.SPRITE_SIZE, Game.SPRITE_SIZE);
+                }
+
+
             }
+
         }
+
     }
 }

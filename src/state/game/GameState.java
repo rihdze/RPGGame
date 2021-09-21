@@ -28,7 +28,7 @@ public class GameState extends State {
         gameMap = new GameMap(new Size(50, 50), spriteLibrary);
         initializeUI(windowSize);
         // have to pass the userName somehow after login:
-
+        gameSettings.getRenderSettings().getShouldRenderGrib().setValue(false);
         initializeCharacters("userName1");
         audioPlayer.playMusic("backgroundmusic.wav");
 

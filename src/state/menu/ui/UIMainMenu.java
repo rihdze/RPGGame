@@ -9,10 +9,13 @@ import state.editor.EditorState;
 import state.game.GameState;
 import state.menu.MenuState;
 
+import java.awt.*;
+
 public class UIMainMenu extends VerticalContainer {
     public UIMainMenu(Size windowSize) {
         super(windowSize);
         alignment = new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER);
+        setBackgroundColor(Color.DARK_GRAY);
 
         addUIComponent(new UIText("RGA game"));
         addUIComponent(new UIButton("Play", (state) -> state.setNextState(new GameState(windowSize, state.getInput(), state.getGameSettings()))));

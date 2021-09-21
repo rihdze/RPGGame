@@ -1,5 +1,6 @@
 package UI.clickable;
 
+import UI.Spacing;
 import UI.UIContainer;
 import UI.UIText;
 import UI.VerticalContainer;
@@ -19,8 +20,9 @@ public class UIButton extends UIClickable{
     public UIButton(String label, ClickAction clickEvent) {
         this.label = new UIText(label);
         this.clickAction = clickEvent;
-
+        setMargin(new Spacing(5,0,0,0));
         container = new VerticalContainer(new Size(0,0));
+        container.setCenterChildren(true);
         container.addUIComponent(this.label);
         this.container.setFixedSize(new Size(120,30));
     }

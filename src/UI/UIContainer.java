@@ -13,6 +13,7 @@ import java.util.List;
 
 public abstract class UIContainer extends UIComponent{
 
+    protected boolean centerChildren;
     protected Color backgroundColor;
     protected List<UIComponent> children;
 
@@ -27,6 +28,7 @@ public abstract class UIContainer extends UIComponent{
     public UIContainer(Size windowSize) {
         super();
         this.windowSize = windowSize;
+        centerChildren = false;
         alignment = new Alignment(Alignment.Position.START, Alignment.Position.START);
         children = new ArrayList<>();
         backgroundColor = new Color(0,0,0,0);
@@ -78,6 +80,10 @@ public abstract class UIContainer extends UIComponent{
 
         }
         calculateContentPosition();
+    }
+
+    public void setCenterChildren(boolean centerChildren) {
+        this.centerChildren = centerChildren;
     }
 
     @Override

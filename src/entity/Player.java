@@ -183,7 +183,8 @@ public class Player extends MovingEntity{
                                 System.out.println("Potion switched to " + potion.getPotionName_DB());
                             } nextj = 0; break;
                         case ("\"Speed\""):
-                           Movement speedBoost = new Movement(20);
+                            state.getPlayer().movement = new Movement(20);
+//                           Movement speedBoost = new Movement(20);
                             System.out.println("you have increased your speed");
                             Potions.removePotions("userName1", potion.getPotionID_DB());
                             if (playerPotions("userName1").size() > 0) {
@@ -236,6 +237,7 @@ public class Player extends MovingEntity{
                 System.out.println("Enemy hp: " + target.getHp());
                 this.cleanup();
 //                state.removeNPC(target);
+                
             }
         }
     }
