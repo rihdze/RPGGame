@@ -72,7 +72,7 @@ public class NPC extends MovingEntity{
     protected void handleCollision(GameObject other) {
 
 
-        if(other instanceof Player  && target.isPlayerIsAlive()){
+        if(other instanceof Player ){
             movement.stop();
 
             if(timer.getSeconds() > ATTACK_SPEED  && target.isPlayerIsAlive()){
@@ -97,7 +97,6 @@ public class NPC extends MovingEntity{
             System.out.println("NPC just did " + damage +" damage to you and left you with " +target.getHp() +" hp");
             this.cleanup();
 
-//            System.out.println(target.getHp());
 
         }
 

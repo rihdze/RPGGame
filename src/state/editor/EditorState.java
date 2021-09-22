@@ -16,7 +16,15 @@ import state.editor.ui.UITileMenu;
 public class EditorState extends State {
     public EditorState(Size windowSize, Input input, GameSettings gameSettings) {
         super(windowSize, input, gameSettings);
-        gameMap = MapIO.load(spriteLibrary);
+
+
+
+         gameMap = MapIO.load(spriteLibrary);
+
+
+
+
+
 //                new GameMap(new Size(32, 32), spriteLibrary);
         gameSettings.getRenderSettings().getShouldRenderGrib().setValue(true);
         mouseHandler.setPrimaryButtonAction(new TilePlacer(new Tile(spriteLibrary, "grass")));

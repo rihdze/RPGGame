@@ -11,15 +11,16 @@ import java.net.URL;
 public class MapIO {
 
     public static void save(GameMap map){
-        final URL urlToResourcesFolder = MapIO.class.getResource("/");
+        final URL urlToResourcesFolder = MapIO.class.getResource("/maps");
         File mapsFolder = new File(urlToResourcesFolder.getFile() + "/maps/");
 
         if(!mapsFolder.exists()){
             mapsFolder.mkdir();
         }
 
-        try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(mapsFolder.toString() + "/map.rga"))){
+        try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(mapsFolder.toString() + "/map.rga" ))){
             bufferedWriter.write(map.serialize());
+
         } catch (IOException e) {
             e.printStackTrace();
         }

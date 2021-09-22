@@ -29,7 +29,7 @@ public class UIText extends UIComponent{
         this.fontFamily = Font.MONOSPACED;
         this.color = Color.WHITE;
 
-        this.dropShadow = true;
+        this.dropShadow = false;
         this.dropShadowOffset = 2;
         this.shadowColor = new Color(140, 140, 140);
     }
@@ -75,5 +75,9 @@ public class UIText extends UIComponent{
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public void setDropShadow(boolean dropShadow) {
+        this.dropShadow = dropShadow;
     }
 }

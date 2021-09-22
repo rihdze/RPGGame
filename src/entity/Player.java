@@ -22,6 +22,15 @@ public class Player extends MovingEntity{
     private int hp;
     private int damage;
     private int damageBoost = 0;
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public Potions getPotion() {
+        return potion;
+    }
+
     private boolean attacking;
     int nexti = 0;
     int nextj = 0;
@@ -30,6 +39,9 @@ public class Player extends MovingEntity{
 ;   private boolean playerIsAlive;
     private NPC target;
 
+    public Weapons getWeapon() {
+        return weapon;
+    }
 
     //MBY I COULD USE THIS FOR NPC'S TO LOCK ON ME WHEN I GO TOO CLOSE TO THEM
     private double targetRange;

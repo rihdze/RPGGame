@@ -20,7 +20,9 @@ import game.settings.GameSettings;
 import input.Input;
 import core.Size;
 import io.MapIO;
+import map.GameMap;
 import state.State;
+import state.game.ui.UICombatLog;
 import state.game.ui.UIGameTime;
 import state.game.ui.UIHealth;
 import state.menu.MenuState;
@@ -38,7 +40,9 @@ public class GameState extends State {
     public GameState(Size windowSize, Input input, GameSettings gameSettings) throws SQLException {
         super(windowSize, input, gameSettings);
         currentlyPlaying = true;
+
         gameMap = MapIO.load(spriteLibrary);
+
         initializeUI(windowSize);
         // have to pass the userName somehow after login:
         gameSettings.getRenderSettings().getShouldRenderGrib().setValue(false);
@@ -73,6 +77,7 @@ public class GameState extends State {
 
         uiContainers.add(new UIGameTime(windowSize));
         uiContainers.add(new UIHealth(windowSize));
+        uiContainers.add(new UICombatLog(windowSize));
 
 
     }
@@ -87,6 +92,7 @@ public class GameState extends State {
         gameObjects.add(circle);
         initializeNPCs(1);
         makeNumberOfNPCsSick(0);
+
     }
 
 
@@ -152,6 +158,7 @@ public class GameState extends State {
     public long aliveNPCs(){
         return getGameObjectsOfClass(NPC.class).stream().filter(npc -> npc.isAlive()==true).count();
     }
+
 
 
 
