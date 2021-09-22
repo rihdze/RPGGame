@@ -261,7 +261,7 @@ public class Player extends MovingEntity{
                 int max = 10;
                 int rLoot = (int)(Math.random()*(max-min+1)+min);
                 if (rLoot == 1 || rLoot == 2) { Inventory.addItem(w, "userName1"); }
-                if (rLoot > 2 || rLoot < 7 ) { Inventory.addItem(p, "userName1");}
+                if (rLoot > 2 && rLoot < 7 ) { Inventory.addItem(p, "userName1");}
                 if (rLoot > 6) {System.out.println(" You searched the dead body, but found nothing ... ");}
                 looted = true;
                 //state.removeNPC(target);
