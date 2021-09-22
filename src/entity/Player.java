@@ -72,16 +72,12 @@ public class Player extends MovingEntity{
     private int handleWeapons2(State state) throws SQLException {
         if (nexti < playerWeapons("userName1").size()) {
             if (entityController.isRequesting2()) {
-                System.out.println(" how many weapons: "+playerWeapons("userName1").size());
-                System.out.println(" nexti is before loading to weapon: "+nexti);
                 weapon = Weapons.loadWeapons(playerWeapons("userName1").get(nexti));
                 damage = weapon.getWeaponDamage_DB();
                 this.nexti = nexti + 1;
-                System.out.println(" nexti is after loading: "+nexti);
                 if (nexti > playerWeapons("userName1").size()) {
                     this.nexti = nexti - 1;
                 }
-                System.out.println(" nexti final before ending is: "+nexti);
                 System.out.println("Weapon switched to " + weapon.getWeaponName_DB());
                 return this.nexti;
             } else {
