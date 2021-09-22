@@ -37,7 +37,7 @@ public class Vector2D {
         direction.normalize();
         return direction;
     }
-
+    
     public static double dotProduct(Vector2D v1, Vector2D v2){
         return v1.getX()*v2.getX() + v1.getY()*v2.getY();
     }

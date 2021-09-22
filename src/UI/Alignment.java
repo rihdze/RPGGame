@@ -9,10 +9,13 @@ public class Alignment {
     private final Position horizontal;
     private final Position vertical;
 
+
     public Alignment(Position horizontal, Position vertical) {
         this.horizontal = horizontal;
         this.vertical = vertical;
     }
+
+
 
     public Position getHorizontal() {
         return horizontal;

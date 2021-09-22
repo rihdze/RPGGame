@@ -27,7 +27,7 @@ public class Player extends MovingEntity{
     int nextj = 0;
     Potions potion;
     Weapons weapon;
-;
+;   private boolean playerIsAlive;
     private NPC target;
 
 
@@ -41,6 +41,7 @@ public class Player extends MovingEntity{
         super(entityController, spriteLibrary);
         this.attacking = false;
         this.isAlive = true;
+        this.playerIsAlive = true;
         this.userName = userName;
         this.selectionCircle = selectionCircle;
         this.targetRange = Game.SPRITE_SIZE;
@@ -55,11 +56,18 @@ public class Player extends MovingEntity{
     }
 
 
+    public boolean isPlayerIsAlive() {
+        return playerIsAlive;
+    }
+
     @Override
     public void update(State state) throws SQLException {
         super.update(state);
         handleTarget(state);
         handleInput(state);
+        if(this.hp == 0){
+            this.playerIsAlive = false;
+        }
         handleWeapons1(state);
         handleWeapons2(state);
         handlePotions1(state);

@@ -72,10 +72,10 @@ public class NPC extends MovingEntity{
     protected void handleCollision(GameObject other) {
 
 
-        if(other instanceof Player){
+        if(other instanceof Player  && target.isPlayerIsAlive()){
             movement.stop();
 
-            if(timer.getSeconds() > ATTACK_SPEED){
+            if(timer.getSeconds() > ATTACK_SPEED  && target.isPlayerIsAlive()){
 
                 attack();
                 timer.reset();

@@ -4,16 +4,16 @@ import UI.*;
 import core.Size;
 import state.State;
 
-public class UICombatLog extends HorizontalContainer {
+public class UICombatLog extends VerticalContainer {
 
     private UIText combatLog;
-
+    private String test;
 
     public UICombatLog(Size windowSize) {
         super(windowSize);
 
         this.combatLog = new UIText("");
-
+        test = "";
 
         UIContainer combatLogContainer = new VerticalContainer(windowSize);
         combatLogContainer.setPadding(new Spacing(0));
@@ -30,16 +30,14 @@ public class UICombatLog extends HorizontalContainer {
     @Override
     public void update(State state){
         super.update(state);
-//        long sickCount = state.getGameObjects().stream()
-//                .filter(gameObject -> gameObject instanceof MovingEntity)
-//                .map(gameObject -> (MovingEntity) gameObject)
-//                .filter(movingEntity -> movingEntity.isAffected(Sick.class))
-//                .count();
 
-        long health = state.getPlayer().getHp();
-        String combatLogText = state.getPlayer().testForUIText();
 
-        combatLog.setText(combatLogText);
+
+
+
+
+
+        combatLog.setText(test + state.getPlayer().testForUIText() + " ");
 //        numberOfHealthy.setText(String.valueOf(health));
     }
 

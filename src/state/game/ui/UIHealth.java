@@ -2,25 +2,25 @@ package state.game.ui;
 
 import UI.*;
 import core.Size;
-import entity.Effect.Sick;
-import entity.MovingEntity;
 import state.State;
+
+//This class is for healthbar
 
 public class UIHealth extends HorizontalContainer {
 
     private UIText numberOfSick;
-    private UIText numberOfHealthy;
-
+    private int currentHP;
+    private UIText health;
+    private UIHealthBar test;
     public UIHealth(Size windowSize) {
         super(windowSize);
-
-        this.numberOfHealthy = new UIText("");
-
+        this.health = new UIText("");
+        this.test = new UIHealthBar(0,100);
 
         UIContainer healthContainer = new VerticalContainer(windowSize);
         healthContainer.setPadding(new Spacing(0));
-        healthContainer.addUIComponent(new UIText("Health"));
-        healthContainer.addUIComponent(numberOfHealthy);
+        healthContainer.addUIComponent(this.health);
+        healthContainer.addUIComponent(test);
 
 
 
@@ -31,15 +31,11 @@ public class UIHealth extends HorizontalContainer {
     @Override
     public void update(State state){
         super.update(state);
-//        long sickCount = state.getGameObjects().stream()
-//                .filter(gameObject -> gameObject instanceof MovingEntity)
-//                .map(gameObject -> (MovingEntity) gameObject)
-//                .filter(movingEntity -> movingEntity.isAffected(Sick.class))
-//                .count();
+        this.currentHP = state.getPlayer().getHp();
+        this.test.setValue(currentHP);
+        this.health.setText("Health: " + String.valueOf(currentHP));
 
-        long health = state.getPlayer().getHp();
 
-        numberOfHealthy.setText(String.valueOf(health));
     }
 
 

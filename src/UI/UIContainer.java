@@ -29,13 +29,14 @@ public abstract class UIContainer extends UIComponent{
         super();
         this.windowSize = windowSize;
         centerChildren = false;
-        alignment = new Alignment(Alignment.Position.START, Alignment.Position.START);
+        alignment = new Alignment(Alignment.Position.CENTER, Alignment.Position.END);
         children = new ArrayList<>();
         backgroundColor = new Color(0,0,0,0);
         margin = new Spacing(5);
         padding = new Spacing(5);
         calculateSize();
         calculatePosition();
+
     }
 
     protected abstract Size calculateContentSize();
