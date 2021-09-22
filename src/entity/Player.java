@@ -171,6 +171,7 @@ public class Player extends MovingEntity{
                     switch (potion.getPotionType_DB()) {
                         case ("\"Health\""):
                             hp += potion.getPotionBoost_DB();
+				if (hp > 100) {hp = 100;}
                             System.out.println("you have restored health");
                             Potions.removePotions("userName1", potion.getPotionID_DB());
                             if (playerPotions("userName1").size() > 0) {
