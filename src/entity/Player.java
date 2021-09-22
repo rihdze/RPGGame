@@ -27,12 +27,12 @@ public class Player extends MovingEntity{
     int nextj = 0;
     Potions potion;
     Weapons weapon;
-;
+
     private NPC target;
 
 
     //MBY I COULD USE THIS FOR NPC'S TO LOCK ON ME WHEN I GO TOO CLOSE TO THEM
-    private double targetRange;
+    private static double targetRange;
     private SelectionCircle selectionCircle;
 
 
@@ -43,7 +43,7 @@ public class Player extends MovingEntity{
         this.isAlive = true;
         this.userName = userName;
         this.selectionCircle = selectionCircle;
-        this.targetRange = Game.SPRITE_SIZE;
+        this.targetRange = 64;
         this.hp = 100;
         //THIS IS FOR WALKING INTO THE MAP AT THE START OF THE GAME
         setPosition(new Position(Game.SPRITE_SIZE * 5, 0));
@@ -54,6 +54,9 @@ public class Player extends MovingEntity{
 
     }
 
+    public int getPlayerHP() {
+        return hp;
+    }
 
     @Override
     public void update(State state) throws SQLException {
@@ -74,6 +77,9 @@ public class Player extends MovingEntity{
             if (entityController.isRequesting2()) {
                 weapon = Weapons.loadWeapons(playerWeapons("userName1").get(nexti));
                 damage = weapon.getWeaponDamage_DB();
+                targetRange = weapon.getWeaponRange_DB();
+                System.out.println("Weapon range is" + targetRange);
+                double rangeBonus = weapon.getWeaponRange_DB();
                 this.nexti = nexti + 1;
                 if (nexti > playerWeapons("userName1").size()) {
                     this.nexti = nexti - 1;
@@ -93,6 +99,8 @@ public class Player extends MovingEntity{
                 nexti -= 1;
                 weapon = Weapons.loadWeapons(playerWeapons("userName1").get(nexti-1));
                 damage = weapon.getWeaponDamage_DB();
+                System.out.println("Weapon range is" + targetRange);
+                targetRange = weapon.getWeaponRange_DB();
                 if (nexti > playerWeapons("userName1").size()) { nexti -= 1; }
                 System.out.println("Weapon switched to " + weapon.getWeaponName_DB());
                 return this.nexti;
@@ -167,7 +175,7 @@ public class Player extends MovingEntity{
                     switch (potion.getPotionType_DB()) {
                         case ("\"Health\""):
                             hp += potion.getPotionBoost_DB();
-				if (hp > 100) {hp = 100;}
+                                if (hp > 100) {hp = 100;}
                             System.out.println("you have restored health");
                             Potions.removePotions("userName1", potion.getPotionID_DB());
                             if (playerPotions("userName1").size() > 0) {
@@ -229,7 +237,7 @@ public class Player extends MovingEntity{
         }
     }
 
-    boolean looted;
+
     private void handleInput(State state) throws SQLException {
         if(entityController.isRequestingAction()){
 //            System.out.println(this.position.getX() + " " + this.position.getY()); test
@@ -239,10 +247,11 @@ public class Player extends MovingEntity{
                 target.subtractHealth(damage + damageBoost);
                 System.out.println("Enemy hp: " + target.getHp());
                 this.cleanup();
-                looted = false;
+                target.looted = false;
+                target.isBeingAttacked = true;
             }
 
-            if(target != null && !target.isAlive() && !looted) {
+            if(target != null && !target.isAlive() && !target.looted) {
                 Random rWeapon = new Random();
                 int minW = 1001;
                 int maxW = 1005;
@@ -259,7 +268,7 @@ public class Player extends MovingEntity{
                 if (rLoot == 1 || rLoot == 2) { Inventory.addItem(w, "userName1"); }
                 if (rLoot > 2 && rLoot < 7 ) { Inventory.addItem(p, "userName1");}
                 if (rLoot > 6) {System.out.println(" You searched the dead body, but found nothing ... ");}
-                looted = true;
+                target.looted = true;
                 //state.removeNPC(target);
             }
 
