@@ -39,7 +39,7 @@ public class NPC extends MovingEntity{
         //Change movement speed for monsters.
         movement = new Movement(Math.random() + 1);
         //just to reduce monster speed, have to change this later.
-        effects.add(new Caffeinated());
+//        effects.add(new Caffeinated());
 //        animationManager = new AnimationManager(spriteLibrary.getUnit("enemy"));
         aiManager = new AIManager();
     }
