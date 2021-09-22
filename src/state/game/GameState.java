@@ -1,6 +1,7 @@
 package state.game;
 
 
+import UI.*;
 import controllers.NPCController;
 import controllers.PlayerController;
 import entity.Effect.Sick;
@@ -12,9 +13,11 @@ import input.Input;
 import core.Size;
 import io.MapIO;
 import state.State;
+import state.game.ui.UICombatLog;
 import state.game.ui.UIGameTime;
 import state.game.ui.UIHealth;
 
+import java.awt.*;
 import java.sql.SQLException;
 
 
@@ -34,22 +37,20 @@ public class GameState extends State {
 
     private void initializeUI(Size windowSize) {
         //You can change this to new HorizontalContainer to have horizontal ui container.
-//        UIContainer container = new VerticalContainer(windowSize);
-//        container.setPadding(new Spacing(20));
-//        container.setBackgroundColor(new Color(0,0,0,0)); // Makes the container Transparent
-//
-//        UIContainer containerEnd = new VerticalContainer(windowSize);
-//        containerEnd.setPadding(new Spacing(20));
-//        containerEnd.setBackgroundColor(new Color(0,0,0,0)); // Makes the container Transparent
-//        containerEnd.setAlignment(new Alignment(Alignment.Position.END, Alignment.Position.START));
-//
-//        container.addUIComponent(new UIText("HELLO UI WORLD"));
-//        containerEnd.addUIComponent(new UIText("BEST GAME EVEEEEEER"));
-//        uiContainers.add(container);
+        UIContainer container = new VerticalContainer(windowSize);
+        container.setPadding(new Spacing(20));
+        container.setBackgroundColor(new Color(0,0,0,0)); // Makes the container Transparent
+
+        UIContainer containerEnd = new VerticalContainer(windowSize);
+        containerEnd.setPadding(new Spacing(20));
+        containerEnd.setBackgroundColor(new Color(0,0,0,0)); // Makes the container Transparent
+        containerEnd.setAlignment(new Alignment(Alignment.Position.END, Alignment.Position.START));
+
 
 
         uiContainers.add(new UIGameTime(windowSize));
         uiContainers.add(new UIHealth(windowSize));
+
     }
 
     private void initializeCharacters(String userName) throws SQLException {

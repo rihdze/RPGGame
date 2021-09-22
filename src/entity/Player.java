@@ -325,6 +325,12 @@ public class Player extends MovingEntity{
     }
     public void subtractHealth(int damage) {
         this.hp -= damage;
+
+    }
+
+    public String testForUIText(){
+
+        return "lolololol " + this.hp;
     }
 
 
