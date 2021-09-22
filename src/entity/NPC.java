@@ -18,6 +18,8 @@ import java.util.Optional;
 
 public class NPC extends MovingEntity{
 
+
+
     private int hp;
     //    private boolean isAlive;
     private int damage;
@@ -25,10 +27,11 @@ public class NPC extends MovingEntity{
     private Player target;
     private double targetRange;
     private static final double ATTACK_SPEED = 2 ;
-
-
+    boolean looted = false;
+    public boolean isBeingAttacked = false;
 
     private AIManager aiManager;
+
     public NPC(EntityController entityController, SpriteLibrary spriteLibrary) {
         super(entityController, spriteLibrary);
         this.targetRange = Game.SPRITE_SIZE;
@@ -39,10 +42,12 @@ public class NPC extends MovingEntity{
         //Change movement speed for monsters.
         movement = new Movement(Math.random() + 1);
         //just to reduce monster speed, have to change this later.
-//        effects.add(new Caffeinated());
+        effects.add(new Caffeinated());
 //        animationManager = new AnimationManager(spriteLibrary.getUnit("enemy"));
         aiManager = new AIManager();
+
     }
+
     @Override
     public void update(State state) throws SQLException {
         super.update(state);
@@ -53,8 +58,8 @@ public class NPC extends MovingEntity{
             this.movement.stop();
             this.perform(new Death());
             animationManager.playDeathAnimation();
-
         }
+
 
     }
 
@@ -63,7 +68,6 @@ public class NPC extends MovingEntity{
             this.perform(new Death());
         }
     }
-
 
 
 
@@ -109,8 +113,7 @@ public class NPC extends MovingEntity{
     public void subtractHealth(int points){
 
         this.hp -= points;
-
-
+        isBeingAttacked = true;
     }
 
     public boolean isAlive() {
