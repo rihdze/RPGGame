@@ -8,6 +8,10 @@ import databases.Inventory;
 import databases.Potions;
 import databases.Weapons;
 import entity.action.Attack;
+import entity.action.SwordAttack;
+import entity.action.GoldenSwordAttack;
+import entity.action.MaceAttack;
+import entity.action.punch;
 import entity.action.WalkInDirection;
 import game.Game;
 import state.State;
@@ -264,7 +268,23 @@ public class Player extends MovingEntity{
 //            System.out.println(this.position.getX() + " " + this.position.getY()); test
             if(target != null && target.isAlive()){
                 this.attacking = true;
-                this.perform(new Attack());
+                
+                if (weapon.getWeaponName_DB().equalsIgnoreCase("\"Mighty Sword\"")) {
+                    this.perform(new SwordAttack());
+                }
+
+                else if (weapon.getWeaponName_DB().equalsIgnoreCase("\"Death Bringer\"")) {
+                    this.perform(new GoldenSwordAttack());
+                }
+
+                else if (weapon.getWeaponName_DB().equalsIgnoreCase("\"Hammer of Gods\"")) {
+                    this.perform(new MaceAttack());
+                }
+
+                else {
+                    this.perform(new punch());
+                }
+                
                 target.subtractHealth(damage + damageBoost);
                 System.out.println("Enemy hp: " + target.getHp());
                 this.cleanup();
