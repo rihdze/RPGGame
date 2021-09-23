@@ -5,6 +5,10 @@ import controllers.EntityController;
 import core.Movement;
 import entity.Effect.Caffeinated;
 import entity.action.Attack;
+import entity.action.SwordAttack;
+import entity.action.GoldenSwordAttack;
+import entity.action.MaceAttack;
+import entity.action.punch;
 import entity.action.Death;
 import game.Game;
 import game.Time;
@@ -89,15 +93,37 @@ public class NPC extends MovingEntity{
 
     }
 
+    private static List<String> availableWeapons = new ArrayList<>(List.of("SwordAttack", "GoldenSwordAttack", "MaceAttack", "punch"));
 
+    private String getRandomWeapon() {
+        Collections.shuffle(availableWeapons);
+        return availableWeapons.get(0);
+    }
+    
     public void attack() {
 
 
         if(target != null && isAlive()){
             this.isAttacking = true;
+            
+            if (getRandomWeapon().equalsIgnoreCase("SwordAttack")) {
+                this.perform(new SwordAttack());
+            }
 
+            if (getRandomWeapon().equalsIgnoreCase("GoldenSwordAttack")) {
+                this.perform(new GoldenSwordAttack());
+            }
+
+            if (getRandomWeapon().equalsIgnoreCase("MaceAttack")) {
+                this.perform(new MaceAttack());
+            }
+
+            if (getRandomWeapon().equalsIgnoreCase("punch")) {
+                this.perform(new punch());
+            }
+            
             target.subtractHealth(damage);
-            this.perform(new Attack());
+            
             System.out.println("NPC just did " + damage +" damage to you and left you with " +target.getHp() +" hp");
             this.cleanup();
 
