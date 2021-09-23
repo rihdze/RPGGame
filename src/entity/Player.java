@@ -268,8 +268,12 @@ public class Player extends MovingEntity{
 //            System.out.println(this.position.getX() + " " + this.position.getY()); test
             if(target != null && target.isAlive()){
                 this.attacking = true;
-                
-                if (weapon.getWeaponName_DB().equalsIgnoreCase("\"Mighty Sword\"")) {
+
+                if(weapon == null){
+                    this.perform(new punch());
+                }
+
+                else if (weapon.getWeaponName_DB().equalsIgnoreCase("\"Mighty Sword\"")) {
                     this.perform(new SwordAttack());
                 }
 
@@ -281,9 +285,7 @@ public class Player extends MovingEntity{
                     this.perform(new MaceAttack());
                 }
 
-                else {
-                    this.perform(new punch());
-                }
+
                 
                 target.subtractHealth(damage + damageBoost);
                 System.out.println("Enemy hp: " + target.getHp());
@@ -356,12 +358,7 @@ public class Player extends MovingEntity{
 
     // If npc collides with me, I clear their effects.
     @Override
-    protected void handleCollision(GameObject other) {
-        if(other instanceof NPC){
-            NPC npc = (NPC) other;
-            npc.clearEffect();
-        }
-    }
+    protected void handleCollision(GameObject other) {}
 
 
     public void attack(NPC npc){
