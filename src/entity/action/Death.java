@@ -24,7 +24,7 @@ public class Death extends Action{
 
     @Override
     public String getAnimationName() {
-        return "death";
+        return "UnarmedDeath";
     }
 
     @Override
