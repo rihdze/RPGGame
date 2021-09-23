@@ -30,6 +30,10 @@ public abstract class GameObject {
 
     }
 
+    public GameObject getParent() {
+        return parent;
+    }
+
     public abstract void update(State state) throws SQLException;
 
 

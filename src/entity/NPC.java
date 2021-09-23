@@ -81,10 +81,10 @@ public class NPC extends MovingEntity{
     protected void handleCollision(GameObject other) {
 
 
-        if(other instanceof Player ){
+        if(other instanceof Player){
             movement.stop();
 
-            if(timer.getSeconds() > ATTACK_SPEED  && target.isPlayerIsAlive()){
+            if(timer.getSeconds() > ATTACK_SPEED  && ((Player) other).isPlayerIsAlive()){
 
                 attack();
                 timer.reset();
@@ -93,6 +93,7 @@ public class NPC extends MovingEntity{
         }
 
     }
+
 
     private static List<String> availableWeapons = new ArrayList<>(List.of("SwordAttack", "GoldenSwordAttack", "MaceAttack", "punch"));
 

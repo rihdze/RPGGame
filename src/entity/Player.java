@@ -7,12 +7,7 @@ import core.Vector2D;
 import databases.Inventory;
 import databases.Potions;
 import databases.Weapons;
-import entity.action.Attack;
-import entity.action.SwordAttack;
-import entity.action.GoldenSwordAttack;
-import entity.action.MaceAttack;
-import entity.action.punch;
-import entity.action.WalkInDirection;
+import entity.action.*;
 import game.Game;
 import state.State;
 import gfx.SpriteLibrary;
@@ -43,6 +38,10 @@ public class Player extends MovingEntity{
 
    private boolean playerIsAlive;
     private NPC target;
+
+    public SelectionCircle getSelectionCircle() {
+        return selectionCircle;
+    }
 
     public Weapons getWeapon() {
         return weapon;
@@ -87,6 +86,7 @@ public class Player extends MovingEntity{
         handleInput(state);
         if(this.hp == 0){
             this.playerIsAlive = false;
+            perform(new PlayerDeath());
         }
         handleWeapons1(state);
         handleWeapons2(state);
@@ -314,6 +314,10 @@ public class Player extends MovingEntity{
             }
 
         }
+    }
+
+    public NPC getTarget() {
+        return target;
     }
 
     public boolean isAttacking() {

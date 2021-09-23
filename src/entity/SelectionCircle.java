@@ -24,6 +24,7 @@ public class SelectionCircle extends GameObject{
 
     }
 
+
     private void initializeSprites() {
         sprite = (BufferedImage) ImageUtils.createCompatibleImage(size, ImageUtils.ALPHA_BIT_MASK);
         Graphics2D graphics = sprite.createGraphics();
