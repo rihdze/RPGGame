@@ -70,6 +70,10 @@ public class Wander extends AIState{
             controller.moveToTarget(state.getPlayer().getPosition(), currentCharacter.getPosition());
         }
 
+        if (isBeingAttacked(currentCharacter)) {
+            controller.moveToTarget(state.getPlayer().getPosition(), currentCharacter.getPosition());
+        }
+
         if(arrived(currentCharacter)) {
             controller.stop();
         }
@@ -107,12 +111,16 @@ public class Wander extends AIState{
 ////            initializeTransition();
 //        }
 
+  //      private boolean isBeingAttacked(NPC currentCharacter) {
+    //        return moveToTarget(targets.get(0), currentCharacter.getPosition());
+    //    }
+    private boolean isBeingAttacked(NPC currentCharacter) {
+        return currentCharacter.isBeingAttacked;
+    }
 
+    private boolean arrived(NPC currentCharacter){
 
-
-        private boolean arrived(NPC currentCharacter){
-
-        return currentCharacter.getPosition().isInRangeOf(targets.get(0));
+       return currentCharacter.getPosition().isInRangeOf(targets.get(0));
     }
 
     private boolean inRangeOfPlayer(NPC currentCharacter, State state){
