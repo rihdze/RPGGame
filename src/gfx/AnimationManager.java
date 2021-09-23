@@ -23,7 +23,7 @@ public class AnimationManager {
         this.frameIndex = 0;
         this.directionIndex = 0;
         currentAnimationName = "";
-        playAnimation("stand");
+        playAnimation("UnarmedStand");
     }
 
     public Image getSprite(){
@@ -51,8 +51,8 @@ public class AnimationManager {
 
     public void playDeathAnimation(){
 
-        this.currentAnimationSheet = (BufferedImage)spriteSet.get("death");
-        currentAnimationName= "death";
+        this.currentAnimationSheet = (BufferedImage)spriteSet.get("UnarmedDeath");
+        currentAnimationName= "UnarmedDeath";
 
         frameIndex = 3;
     }

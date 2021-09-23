@@ -1,20 +1,29 @@
 package entity.action;
 
+import core.Size;
 import entity.MovingEntity;
 import game.GameLoop;
 import state.State;
 
-public class Death extends Action{
-    private int lifeSpanInSeconds;
+public class GoldenSwordAttack extends Action{
 
-    public Death() {
+    private int lifeSpanInSeconds;
+    private Size spreadAreaSize;
+    private double risk;
+
+    public GoldenSwordAttack() {
         lifeSpanInSeconds = GameLoop.UPDATES_PER_SECOND;
+
     }
 
     @Override
     public void update(State state, MovingEntity entity) {
 
-        lifeSpanInSeconds--;
+
+        if(entity.isAttacking()){
+            lifeSpanInSeconds--;
+        }
+
     }
 
     @Override
@@ -24,11 +33,13 @@ public class Death extends Action{
 
     @Override
     public String getAnimationName() {
-        return "UnarmedDeath";
+        return "GoldenSwordAttack";
     }
 
     @Override
     public String getSoundName() {
-        return null;
+        return "attack.wav";
     }
+
+
 }

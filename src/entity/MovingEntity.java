@@ -116,9 +116,9 @@ public abstract class MovingEntity extends GameObject{
             animationManager.playAnimation(action.get().getAnimationName());
         }
          else if(movement.isMoving()){
-            animationManager.playAnimation("walk");
+            animationManager.playAnimation("UnarmedRun");
         } else {
-            animationManager.playAnimation("stand");
+            animationManager.playAnimation("UnarmedStand");
         }
     }
 

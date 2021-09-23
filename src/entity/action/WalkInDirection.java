@@ -32,7 +32,7 @@ public class WalkInDirection extends Action{
 
     @Override
     public String getAnimationName() {
-        return "walk";
+        return "UnarmedRun";
     }
 
     @Override
