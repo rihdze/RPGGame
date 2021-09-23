@@ -8,29 +8,28 @@ import game.settings.GameSettings;
 import state.State;
 import state.menu.MenuState;
 
+
 import java.awt.*;
 
 public class UIOptionsMenu extends VerticalContainer {
 
-    private UISlider musicVolume;
+    private UISlider musicVolSlider;
     private UIText musicVolLabel;
 
-
-    private UISlider soundVolume;
+    private UISlider soundVolSlider;
     private UIText soundVolLabel;
-
 
     public UIOptionsMenu(Size windowSize, GameSettings gameSettings) {
         super(windowSize);
         alignment = new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER);
 
-        musicVolume = new UISlider(0, 1);
-        musicVolume.setValue(gameSettings.getAudioSettings().getMusicVolume());
-        musicVolLabel = new UIText("");
+        musicVolSlider = new UISlider(0, 1);
+        musicVolSlider.setValue(gameSettings.getAudioSettings().getMusicVolume());
+        musicVolLabel = new UIText("Music vol:");
 
-        soundVolume = new UISlider(0, 1);
-        soundVolume.setValue(gameSettings.getAudioSettings().getSoundVolume());
-        soundVolLabel = new UIText("");
+        soundVolSlider = new UISlider(0, 1);
+        soundVolSlider.setValue(gameSettings.getAudioSettings().getSoundVolume());
+        soundVolLabel = new UIText("Sound vol: ");
 
         UIContainer labelContainer = new VerticalContainer(windowSize);
         labelContainer.setMargin(new Spacing(0));
@@ -39,31 +38,29 @@ public class UIOptionsMenu extends VerticalContainer {
 
         UIContainer contentContainer = new VerticalContainer(windowSize);
         contentContainer.setMargin(new Spacing(0));
-        contentContainer.setBackgroundColor(Color.DARK_GRAY);
         contentContainer.setPadding(new Spacing(10));
+        contentContainer.setBackgroundColor(Color.DARK_GRAY);
         contentContainer.addUIComponent(musicVolLabel);
-        contentContainer.addUIComponent(musicVolume);
+        contentContainer.addUIComponent(musicVolSlider);
         contentContainer.addUIComponent(soundVolLabel);
-        contentContainer.addUIComponent(soundVolume);
+        contentContainer.addUIComponent(soundVolSlider);
         contentContainer.addUIComponent(new UIButton("BACK", (state) -> ((MenuState)state).enterMenu(new UIMainMenu(windowSize))));
-
 
         addUIComponent(labelContainer);
         addUIComponent(contentContainer);
-
     }
 
     @Override
-    public void update(State state){
+    public void update(State state) {
         super.update(state);
         handleVolume(state);
     }
 
     private void handleVolume(State state) {
-        state.getGameSettings().getAudioSettings().setMusicVolume((float)musicVolume.getValue());
-        musicVolLabel.setText(String.format("Music volume: %d", Math.round(musicVolume.getValue()*100)));
+        state.getGameSettings().getAudioSettings().setMusicVolume((float) musicVolSlider.getValue());
+        musicVolLabel.setText(String.format("MUSIC VOL: %d", Math.round(musicVolSlider.getValue() * 100)));
 
-        state.getGameSettings().getAudioSettings().setSoundVolume((float)soundVolume.getValue());
-        soundVolLabel.setText(String.format("Sound volume: %d", Math.round(soundVolume.getValue()*100)));
+        state.getGameSettings().getAudioSettings().setSoundVolume((float) soundVolSlider.getValue());
+        soundVolLabel.setText(String.format("SOUND VOL: %d", Math.round(soundVolSlider.getValue() * 100)));
     }
 }

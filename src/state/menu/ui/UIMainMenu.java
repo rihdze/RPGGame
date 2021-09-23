@@ -1,6 +1,7 @@
 package state.menu.ui;
 
 import UI.Alignment;
+import UI.Spacing;
 import UI.UIText;
 import UI.VerticalContainer;
 import UI.clickable.UIButton;
@@ -22,5 +23,6 @@ public class UIMainMenu extends VerticalContainer {
         addUIComponent(new UIButton("Options", (state) -> ((MenuState)state).enterMenu(new UIOptionsMenu(windowSize, state.getGameSettings()))));
         addUIComponent(new UIButton("Editor", (state) -> state.setNextState(new EditorState(windowSize, state.getInput(), state.getGameSettings()))));
         addUIComponent(new UIButton("Exit", (state) -> System.exit(0)));
+
     }
 }

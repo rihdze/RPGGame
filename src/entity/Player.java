@@ -22,6 +22,8 @@ public class Player extends MovingEntity{
     private int damage;
     private int damageBoost = 0;
 
+
+
     public int getDamage() {
         return damage;
     }
@@ -36,7 +38,7 @@ public class Player extends MovingEntity{
     Potions potion;
     Weapons weapon;
 
-   private boolean playerIsAlive;
+     private boolean playerIsAlive;
     private NPC target;
 
     public SelectionCircle getSelectionCircle() {
@@ -266,7 +268,7 @@ public class Player extends MovingEntity{
     private void handleInput(State state) throws SQLException {
         if(entityController.isRequestingAction()){
 //            System.out.println(this.position.getX() + " " + this.position.getY()); test
-            if(target != null && target.isAlive()){
+            if(target != null && target.isAlive() && isPlayerIsAlive()){
                 this.attacking = true;
 
                 if(weapon == null){
@@ -372,11 +374,6 @@ public class Player extends MovingEntity{
     public void subtractHealth(int damage) {
         this.hp -= damage;
 
-    }
-
-    public String testForUIText(){
-
-        return "lolololol " + this.hp;
     }
 
 

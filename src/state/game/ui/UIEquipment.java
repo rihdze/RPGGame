@@ -4,31 +4,30 @@ import UI.*;
 import core.Size;
 import state.State;
 
-import javax.swing.*;
 import java.awt.*;
 
 
-public class UICombatLog extends VerticalContainer {
+public class UIEquipment extends VerticalContainer {
 
-    private UIText combatLog;
+    private UIText equipment;
     private UIText currentWeapon;
     private UIText currentPotion;
-    private String test;
 
 
-    public UICombatLog(Size windowSize) {
+
+    public UIEquipment(Size windowSize) {
         super(windowSize);
 
 
         this.alignment = new Alignment(Alignment.Position.START, Alignment.Position.END);
-        this.combatLog = new UIText("Equipment:");
+        this.equipment = new UIText("Equipment:");
 
         this.currentWeapon = new UIText("");
         this.currentPotion = new UIText("");
 
         setFixedSize(new Size(400, 150));
         setBackgroundColor(Color.DARK_GRAY);
-        addUIComponent(combatLog);
+        addUIComponent(equipment);
         addUIComponent(new UIText("Weapon:"));
         addUIComponent(currentWeapon);
         addUIComponent(new UIText("Potion:"));

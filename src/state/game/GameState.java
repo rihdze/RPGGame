@@ -13,16 +13,14 @@ import entity.Effect.Sick;
 import entity.NPC;
 import entity.Player;
 import entity.SelectionCircle;
-import entity.action.Death;
 import entity.action.PlayerDeath;
 import game.Game;
 import game.settings.GameSettings;
 import input.Input;
 import core.Size;
 import io.MapIO;
-import map.GameMap;
 import state.State;
-import state.game.ui.UICombatLog;
+import state.game.ui.UIEquipment;
 import state.game.ui.UIGameTime;
 import state.game.ui.UIHealth;
 import state.menu.MenuState;
@@ -77,7 +75,7 @@ public class GameState extends State {
 
         uiContainers.add(new UIGameTime(windowSize));
         uiContainers.add(new UIHealth(windowSize));
-        uiContainers.add(new UICombatLog(windowSize));
+        uiContainers.add(new UIEquipment(windowSize));
 
 
     }
@@ -90,7 +88,7 @@ public class GameState extends State {
         gameObjects.add(player);
         camera.focusOn(player);
         gameObjects.add(circle);
-        initializeNPCs(5);
+        initializeNPCs(50);
         makeNumberOfNPCsSick(0);
 
     }

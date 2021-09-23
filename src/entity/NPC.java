@@ -107,6 +107,7 @@ public class NPC extends MovingEntity{
 
         if(target != null && isAlive()){
             this.isAttacking = true;
+
             
             if (getRandomWeapon().equalsIgnoreCase("SwordAttack")) {
                 this.perform(new SwordAttack());
@@ -123,7 +124,7 @@ public class NPC extends MovingEntity{
             if (getRandomWeapon().equalsIgnoreCase("punch")) {
                 this.perform(new punch());
             }
-            
+
             target.subtractHealth(damage);
             
             System.out.println("NPC just did " + damage +" damage to you and left you with " +target.getHp() +" hp");
