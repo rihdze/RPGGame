@@ -273,7 +273,12 @@ public class Player extends MovingEntity{
                 if(weapon == null){
                     this.perform(new punch());
                 }
-
+                else if(weapon.getWeaponName_DB().equalsIgnoreCase("\"Bow of Wonder\"")){
+                    this.perform(new punch());
+                }
+                else if(weapon.getWeaponName_DB().equalsIgnoreCase("\"Throwing axe\"")){
+                    this.perform(new punch());
+                }
                 else if (weapon.getWeaponName_DB().equalsIgnoreCase("\"Mighty Sword\"")) {
                     this.perform(new SwordAttack());
                 }
@@ -363,10 +368,7 @@ public class Player extends MovingEntity{
 
 
 
-    public Position test(){
-        Position asd = new Position(position.getX(), position.getY());
-        return asd;
-    }
+
     public void subtractHealth(int damage) {
         this.hp -= damage;
 

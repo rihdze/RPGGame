@@ -1,6 +1,6 @@
 package entity.action;
 
-import core.Size;
+
 import entity.MovingEntity;
 import game.GameLoop;
 import state.State;
@@ -8,8 +8,7 @@ import state.State;
 public class SwordAttack extends Action{
 
     private int lifeSpanInSeconds;
-    private Size spreadAreaSize;
-    private double risk;
+
 
     public SwordAttack() {
         lifeSpanInSeconds = GameLoop.UPDATES_PER_SECOND;
