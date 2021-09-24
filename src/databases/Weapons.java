@@ -18,7 +18,7 @@ public class Weapons {
 
     public static Weapons loadWeapons(int id) {
         try {
-              //if (id > 1000 && id < 2000) {
+
                     String cwd = System.getProperty("user.dir");
                     String pathToDb = cwd+"\\src\\databases\\gameDB.db";
                     Connection conn4 = DriverManager.getConnection("jdbc:sqlite:" + pathToDb);
@@ -29,18 +29,18 @@ public class Weapons {
 
                     Weapons weapon = new Weapons(result1.getString("weaponName_DB"), result1.getInt("weaponRange_DB"), result1.getInt("weaponSpeed_DB"), result1.getInt("weaponDamage"));
 
-                  //  System.out.println("A new weapon named " + result.getString("weaponName_DB") + " has been found.");
+
                     result1.close();
                     statement4.close();
                     conn4.close();
                     return weapon;
-              // }
+
             }
                 catch (SQLException e) {
                 System.out.println("Weapon ID out of bounds");
                 return null;
                 }
-       // return null;
+
     }
 
 

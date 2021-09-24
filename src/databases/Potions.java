@@ -31,7 +31,7 @@ public class Potions {
 
     public static Potions loadPotions(int id) {
         try {
-           // if (id > 2000 && id < 3000) {
+
                 String cwd = System.getProperty("user.dir");
                 String pathToDb = cwd+"\\src\\databases\\gameDB.db";
                 Connection conn3 = DriverManager.getConnection("jdbc:sqlite:" + pathToDb);
@@ -46,7 +46,7 @@ public class Potions {
                 statement3.close();
                 conn3.close();
                 return potion;
-           // }
+
         }
         catch (SQLException e) {
             System.out.println("Potion ID out of bounds");
