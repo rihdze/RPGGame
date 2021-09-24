@@ -49,7 +49,7 @@ public class Player extends MovingEntity{
         return weapon;
     }
 
-    //MBY I COULD USE THIS FOR NPC'S TO LOCK ON ME WHEN I GO TOO CLOSE TO THEM
+
     private static double targetRange;
     private SelectionCircle selectionCircle;
 
@@ -68,8 +68,7 @@ public class Player extends MovingEntity{
         setPosition(new Position(Game.SPRITE_SIZE * 5, 0));
         perform(new WalkInDirection(new Vector2D(0, 1)));
 
-//        Adds caffeinated effect = 2.5 speed for x amount of seconds (visu norada ieksa klase)
-//        effects.add(new Caffeinated());
+
 
     }
 
@@ -267,7 +266,7 @@ public class Player extends MovingEntity{
 
     private void handleInput(State state) throws SQLException {
         if(entityController.isRequestingAction()){
-//            System.out.println(this.position.getX() + " " + this.position.getY()); test
+
             if(target != null && target.isAlive() && isPlayerIsAlive()){
                 this.attacking = true;
 
@@ -314,7 +313,7 @@ public class Player extends MovingEntity{
                 if (rLoot > 2 && rLoot < 7 ) { Inventory.addItem(p, "userName1");}
                 if (rLoot > 6) {System.out.println(" You searched the dead body, but found nothing ... ");}
                 target.looted = true;
-                //state.removeNPC(target);
+
             }
 
         }
@@ -358,15 +357,12 @@ public class Player extends MovingEntity{
     }
 
 
-    // If npc collides with me, I clear their effects.
+
     @Override
     protected void handleCollision(GameObject other) {}
 
 
-    public void attack(NPC npc){
-            npc.subtractHealth(damage);
 
-        }
     public Position test(){
         Position asd = new Position(position.getX(), position.getY());
         return asd;

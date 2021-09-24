@@ -1,7 +1,6 @@
 package controllers;
 
-import core.Movement;
-import entity.Player;
+
 import game.Game;
 import input.Input;
 

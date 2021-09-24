@@ -3,7 +3,6 @@ package display;
 
 import state.State;
 import input.Input;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -15,7 +14,7 @@ public class Display extends JFrame {
     private DebugRender debugRenderer;
 
     public Display(int width, int height, Input input){
-        setTitle("My Awesome RPG Game");
+        setTitle("The Lost Homeland");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
 

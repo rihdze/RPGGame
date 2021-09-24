@@ -4,7 +4,6 @@ import ai.AITransition;
 import controllers.NPCController;
 import core.Position;
 import entity.NPC;
-import entity.Player;
 import state.State;
 
 import java.util.ArrayList;
@@ -14,8 +13,7 @@ public class LockOnTarget extends AIState{
 
 
     private List<Position> targets;
-    private Player player;
-    private Position test;
+
 
     public static String stateName = "lockontarget";
     public LockOnTarget() {
@@ -25,7 +23,7 @@ public class LockOnTarget extends AIState{
 
     @Override
     protected AITransition initializeTransition() {
-       // System.out.println("INITIALIZE TRANSITION FROM LOCK ON TARGET");
+
 
         if(stateName.equals("wander")){
             return toWander();
@@ -89,7 +87,7 @@ public class LockOnTarget extends AIState{
 
 
     private boolean arrived(NPC currentCharacter){
-//        System.out.println(currentCharacter.getPosition().isInRangeOf(targets.get(0)));
+
         return currentCharacter.getPosition().isInRangeOf(targets.get(0));
     }
 

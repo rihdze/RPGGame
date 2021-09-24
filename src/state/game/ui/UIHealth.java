@@ -8,7 +8,7 @@ import state.State;
 
 public class UIHealth extends HorizontalContainer {
 
-    private UIText numberOfSick;
+
     private int currentHP;
     private int enemyCurrentHP;
     private UIText playerLabel;

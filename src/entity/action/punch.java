@@ -8,8 +8,7 @@ import state.State;
 public class punch extends Action{
 
     private int lifeSpanInSeconds;
-    private Size spreadAreaSize;
-    private double risk;
+
 
     public punch() {
         lifeSpanInSeconds = GameLoop.UPDATES_PER_SECOND;

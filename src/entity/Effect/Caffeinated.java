@@ -3,7 +3,7 @@ package entity.Effect;
 import entity.MovingEntity;
 import game.GameLoop;
 import state.State;
-//VARETU SHITO PARTAISIT UZ KKADU POTION EFFECT KURS PAATRINA MOVEMENT SPEED
+//Just for testing purposes
 public class Caffeinated extends Effect{
 
     private double speedMultiplier;

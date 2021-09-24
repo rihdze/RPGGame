@@ -18,7 +18,8 @@ public class UIMainMenu extends VerticalContainer {
         alignment = new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER);
         setBackgroundColor(Color.DARK_GRAY);
 
-        addUIComponent(new UIText("RGA game"));
+
+//        addUIComponent(new UIText("The Lost Homeland"));
         addUIComponent(new UIButton("Play", (state) -> state.setNextState(new GameState(windowSize, state.getInput(), state.getGameSettings()))));
         addUIComponent(new UIButton("Options", (state) -> ((MenuState)state).enterMenu(new UIOptionsMenu(windowSize, state.getGameSettings()))));
         addUIComponent(new UIButton("Editor", (state) -> state.setNextState(new EditorState(windowSize, state.getInput(), state.getGameSettings()))));

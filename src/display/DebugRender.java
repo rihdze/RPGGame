@@ -4,7 +4,7 @@ import core.CollisionBox;
 import state.State;
 
 import java.awt.*;
-
+//For debugging purposes
 public class DebugRender {
 
 

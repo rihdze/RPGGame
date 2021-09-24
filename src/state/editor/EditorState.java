@@ -1,6 +1,6 @@
 package state.editor;
 
-import UI.clickable.UIButton;
+
 import core.Size;
 import game.settings.GameSettings;
 import input.Input;
@@ -20,13 +20,13 @@ public class EditorState extends State {
 
 
          gameMap = new GameMap(new Size(32, 32), spriteLibrary);
-//                 MapIO.load(spriteLibrary);
+        //MapIO.load(spriteLibrary);
 
 
 
 
 
-//
+
         gameSettings.getRenderSettings().getShouldRenderGrib().setValue(true);
         mouseHandler.setPrimaryButtonAction(new TilePlacer(new Tile(spriteLibrary, "grass")));
 

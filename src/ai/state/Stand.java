@@ -12,7 +12,7 @@ public class Stand extends AIState{
     @Override
     protected AITransition initializeTransition() {
         setStateName("wander");
-      //  System.out.println("INITIALIZE TRANSITION FROM STAND");
+
         if(stateName.equals("lockontarget")){
             return toLockOnTarget();
         } else {
@@ -20,13 +20,6 @@ public class Stand extends AIState{
         }
 
 
-//        if(stateName.equals("wander")){
-//            return toWander();
-//        } else if(stateName.equals("lockontarget")){
-//            return toLockOnTarget();
-//        } else {
-//            return toStand();
-//        }
 
     }
 
@@ -35,9 +28,6 @@ public class Stand extends AIState{
         return new AITransition("lockontarget",(state, currentCharacter) -> (currentCharacter.getPosition().isInRangeOf(getCurrentPlayerPosition(state))));
     }
 
-//    public AITransition toStand(){
-//        return new AITransition("stand",(state, currentCharacter) -> updatesAlive >= state.getTime().getUpdatesFromSeconds(1));
-//    }
 
     public AITransition toWander(){
         return new AITransition("wander", ((state, currentCharacter) -> updatesAlive >= state.getTime().getUpdatesFromSeconds(3)));
@@ -59,7 +49,7 @@ public class Stand extends AIState{
 
             setStateName("lockontarget");
             initializeTransition();
-//            controller.stop();
+
 
 
         }

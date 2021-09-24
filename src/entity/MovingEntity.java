@@ -163,22 +163,13 @@ public abstract class MovingEntity extends GameObject{
         this.action = Optional.of(action);
     }
 
-//    public void attack(NPC npc){
-//        npc.subtractHealth(50);
-//    }
+
 
     public void addEffect(Effect effect) {
         effects.add(effect);
     }
 
-    protected void clearEffect() {
-        effects.clear();
-    }
-// For sickness follower
-    public boolean isAffected(Class<?> clazz) {
-        return effects.stream()
-                .anyMatch(effect -> clazz.isInstance(effect));
-    }
+
     public EntityController getEntityController() {
         return entityController;
     }
